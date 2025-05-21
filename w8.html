@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            border: 3px solid black;
+            background-color: black;
+            height: 500px;
+            position: relative;
+        }
+        
+        .ball {
+            background-color: rgb(255, 255, 255);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            position: absolute;
+            left: 0%;
+            bottom: 0%;
+            animation: animateX 0.1s linear infinite, animatey 0.1s ease-out infinite alternate;
+            animation-play-state: paused;
+        }
+        
+        .ball:hover {
+            animation-play-state: running;
+        }
+        
+        @keyframes animateX {
+            0% {
+                left: 0%;
+                background-color: red;
+            }
+            10% {
+                left: 50%;
+                width: 100px;
+            }
+            20% {
+                left: 100%;
+            }
+            30% {
+                left: 25%;
+                width: 150px;
+                border-radius: 0%;
+            }
+            40% {
+                left: 75%;
+            }
+            50% {
+                left: 15%;
+                width: 20px;
+                border-radius: 50%;
+            }
+            70% {
+                left: 95%;
+            }
+            80% {
+                left: 55%;
+            }
+            90% {
+                left: 25%;
+            }
+            95% {
+                left: 50%;
+                width: 75px;
+            }
+            100% {
+                left: 96.9%;
+                background-color: blue;
+            }
+        }
+        
+        @keyframes animatey {
+            0% {
+                bottom: 0%;
+                background-color: blue;
+            }
+            10% {
+                bottom: 50%;
+                background-color: blue;
+            }
+            20% {
+                bottom: 95%;
+                background-color: blue;
+            }
+            30% {
+                bottom: 15%;
+                background-color: blue;
+            }
+            40% {
+                bottom: 75%;
+                background-color: blue;
+            }
+            50% {
+                bottom: 15%;
+                background-color: blue;
+            }
+            60% {
+                bottom: 95%;
+                background-color: blue;
+            }
+            70% {
+                bottom: 10%;
+                background-color: blue;
+            }
+            80% {
+                bottom: 95%;
+                background-color: blue;
+            }
+            90% {
+                bottom: 50%;
+                background-color: blue;
+            }
+            100% {
+                bottom: 90%;
+                background-color: red;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+
+        <div class="ball">
+
+        </div>
+
+    </div>
+</body>
+
+</html>
