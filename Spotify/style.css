@@ -1,0 +1,238 @@
+body {
+    background-color: black;
+    color: white;
+
+    font-family: SpotifyMixUI, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, "Helvetica Neue", helvetica, arial, "Hiragino Kaku Gothic ProN", Meiryo, "MS Gothic";
+overflow-x: hidden;
+}
+
+.container {
+    display: flex;
+    gap: 5px;
+    position: absolute;
+   
+}
+
+.left {
+    width: 35vw;
+    
+   
+
+
+}
+
+.right {
+    width: 65vw;
+    position: relative;
+    
+}
+
+.home ul li
+{
+   position: relative;
+    list-style-type: none;
+    display: flex;
+    width: 35px;
+    right: 40px;
+    gap: 0px;
+    font-size: larger;
+}
+.logo {
+    position: relative;
+    display: flex;
+    width: 35px;
+    right: 40px;
+    font-size: larger;
+}
+
+.home {
+    background-color: #121212;
+    padding: 10px;
+    margin-bottom: 5px;
+    height: 20vh;
+    border-radius: 5px;
+ 
+    
+}
+
+
+
+.library {
+        border-radius: 5px;
+
+    background-color: #121212;
+    padding: 10px;
+    display: flex;
+    height: 73vh;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: SpotifyMixUI, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, "Helvetica Neue", helvetica, arial, "Hiragino Kaku Gothic ProN", Meiryo, "MS Gothic";
+    
+   
+}
+/* .libary-content{
+    display: flex;
+    flex-direction: column;
+} */
+
+.libaray-logo{
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 16px;
+    
+}
+.li-log{
+    display: flex;
+    gap: 10px;
+}
+
+
+#search {
+    color: grey;
+}
+
+
+.more-icon {
+
+    padding-top: 6px;
+    
+}
+
+.right-main h2{
+    margin: 0;
+    padding: 10px;
+    
+}
+.right-main h3 {
+    margin-left: 0px;
+    margin-top: 7px;
+    margin-bottom: 0px;
+}
+.right-main p{
+    margin-left: 0px;
+    margin-top: 7px;
+}
+
+.right-up-bar {
+        border-radius: 5px;
+
+    display: flex;
+    justify-content: space-between;
+    background-color:#0c0c0c;
+    padding: 10px;
+}
+
+#singup{ background-color: #0c0c0c;
+    color: #9c9494;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 16px;
+
+    
+    
+}
+
+    .in-up{
+        position: relative;
+        right: 15px;
+    }
+#singup:hover{
+    font-size: 17px;
+    color: white;
+}
+#signin:hover{
+    font-weight: bold;
+    
+}
+#signin{
+    background-color: white;
+    border-radius: 21px;
+    color: 0c0c0c;
+    padding: 10px;
+    width: 79px;
+    cursor: pointer;
+    font-size: 16px;
+    border: none;
+    
+    }
+
+    .right-main{background-color: #121212;
+        border-radius: 5px;
+        height: 80vh;
+        position: relative;
+        overflow-y: scroll;
+        scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;
+}
+
+
+.discribe p{
+    color: gray;
+    
+}
+.discribe h3{
+    margin: 0;
+    
+}
+
+.cardContainer{
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+.card{
+    margin: 20px;
+    background-color:#252525;
+    padding: 10px;
+    width: 200px;
+    height: auto;
+    position: relative;
+    
+}
+
+.pic{
+   
+    position: relative;
+}
+.card #thumnail{
+    width: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+    margin: 0;
+}
+
+.player.playhoverd{
+    opacity: 1;
+    bottom: 10px;
+}
+
+.player{
+   position: absolute;
+   bottom: 0px;
+   right: 10px;
+   opacity: 0;
+   transition: all 0.2s ease-in-out;
+  
+}
+
+
+
+.playbar{
+    position: relative;
+   margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #0c0c0c;
+    width: 90%;
+    padding: 10px;
+    
+}
+
+
+
+
+
+
