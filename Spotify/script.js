@@ -79,10 +79,12 @@ let track = null;
 // Update progress bar
 function updateProgressBar() {
   const progressBar = document.getElementById("progress-bar");
+  const timel = document.querySelector(".sec3")
   if (track && track.duration) {
     const percent = (track.currentTime / track.duration) * 100;
     console.log(percent)
     progressBar.style.width = `${percent}%`;
+    timel.innerHTML = track.currentTime
   }
 }
 
@@ -156,7 +158,7 @@ async function main() {
     li.innerHTML = `
       <div class="song-no">${index + 1}</div>
       <div class="songpic">
-        <img src="assets/img/ab67616d00001e02a5183fa4b99bcec1f506418d.jpeg" width="40px" height="40px">
+        <img src="assets/music-note-svgrepo-com.svg" width="40px" height="40px">
       </div>
       <div class="album">
         <div class="songname">${displayName[0]}</div>
