@@ -10,11 +10,11 @@
     <script>
         async function testpost() {
             let a = await fetch("/",{method:"Post"}) 
-            console.log(a)
-            let b = await a.text;
+            let b = await a.text()
             console.log(b);
             
         }
+        testpost()
     </script>
     
 </body>

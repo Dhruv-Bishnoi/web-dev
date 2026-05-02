@@ -12,8 +12,15 @@ app.get('/', (req, res) => {
 
 
 app.post('/', (req, res) => {
-  console.log('hello')
+  console.log('hello world')
   res.send('Data received!')
+
+})
+
+app.get('/index',(req, res) => {
+  console.log('hello world index')
+  res.sendFile("template/index.html" , {root:__dirname})
+
 })
 
 app.listen(port, () => {
