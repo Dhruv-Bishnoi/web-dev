@@ -21,6 +21,7 @@
             width: 28px;
             height: 35px;
             fill: white;
+            
 
         }
     </style>
@@ -230,11 +231,14 @@
                     <form>
                         <div
                             class="w-full border-[#2f3336] mb-4 border border-default-medium rounded-base bg-neutral-secondary-medium shadow-xs">
+                            <div class="in p-3 flex ">
+                            <img class="w-15 h-15 rounded-4xl" src="https://pbs.twimg.com/profile_images/2020848627246313472/WJxfmupz_400x400.jpg" alt="">
                             <div class="px-4 py-2 bg-neutral-secondary-medium rounded-t-base">
                                 <label for="comment" class="sr-only">What’s happening</label>
                                 <textarea id="comment" rows="4"
                                     class="block w-full px-0  font-light text-xl text-heading bg-neutral-secondary-medium border-0 focus:ring-0 placeholder:text-body"
                                     placeholder="What’s happening?" required></textarea>
+                            </div>
                             </div>
                             <div
                                 class="flex border-[#2f3336] justify-between items-center px-3 py-2 border-t border-default-medium">
@@ -274,7 +278,7 @@
                                     <button type="button"
                                         class="p-2 text-body rounded-sm cursor-pointer hover:text-heading hover:bg-neutral-tertiary-medium">
                                         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                            width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            width="24" height="24" fill="" viewBox="0 0 24 24">
                                             <path fill="currentColor"
                                                 d="M16 18H8l2.5-6 2 4 1.5-2 2 4Zm-1-8.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z" />
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -285,14 +289,14 @@
                                     </button>
                                 </div>
                                 <button type="submit"
-                                    class="text-black font-bold bg-brand bg-[#2f3336] rounded-4xl box-border  hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs leading-5 rounded-base text-sm px-3 py-2 focus:outline-none">Post</button>
+                                    class="text-black font-bold hover:bg-[#1d9bf0] transition  bg-[#2f3336] rounded-4xl box-border  hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs leading-5 rounded-base text-sm px-3 py-2 focus:outline-none">Post</button>
                             </div>
                         </div>
                     </form>
 
                 </div>
 
-                <div class="text-blue-500 flex justify-center pb-4">Show 172 Posts</div>
+                <div class="text-[#1d9bf0]  flex justify-center pb-4">Show 172 Posts</div>
 
                 <div class="h-px w-full bg-[#2f3336]"></div>
 

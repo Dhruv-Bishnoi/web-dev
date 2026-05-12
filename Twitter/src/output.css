@@ -317,6 +317,9 @@
   .h-5 {
     height: calc(var(--spacing) * 5);
   }
+  .h-15 {
+    height: calc(var(--spacing) * 15);
+  }
   .h-25 {
     height: calc(var(--spacing) * 25);
   }
@@ -356,6 +359,9 @@
   .w-14 {
     width: calc(var(--spacing) * 14);
   }
+  .w-15 {
+    width: calc(var(--spacing) * 15);
+  }
   .w-40 {
     width: calc(var(--spacing) * 40);
   }
@@ -391,6 +397,9 @@
   }
   .border-collapse {
     border-collapse: collapse;
+  }
+  .transform {
+    transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   }
   .cursor-pointer {
     cursor: pointer;
@@ -439,6 +448,9 @@
       margin-inline-start: calc(calc(var(--spacing) * 1) * var(--tw-space-x-reverse));
       margin-inline-end: calc(calc(var(--spacing) * 1) * calc(1 - var(--tw-space-x-reverse)));
     }
+  }
+  .rounded {
+    border-radius: 0.25rem;
   }
   .rounded-2xl {
     border-radius: var(--radius-2xl);
@@ -530,6 +542,42 @@
   }
   .bg-white {
     background-color: var(--color-white);
+  }
+  .bg-radial {
+    --tw-gradient-position: in oklab;
+    background-image: radial-gradient(var(--tw-gradient-stops));
+  }
+  .bg-\[url\(\/img\/mountains\.jpg\)\] {
+    background-image: url(/img/mountains.jpg);
+  }
+  .bg-\[url\(https\:\/\/pbs\.twimg\.com\/profile_images\/2020848627246313472\/WJxfmupz_400x400\.jpg\)\] {
+    background-image: url(https://pbs.twimg.com/profile_images/2020848627246313472/WJxfmupz_400x400.jpg);
+  }
+  .mask-radial-from-100 {
+    mask-image: var(--tw-mask-linear), var(--tw-mask-radial), var(--tw-mask-conic);
+    mask-composite: intersect;
+    --tw-mask-radial-stops: var(--tw-mask-radial-shape) var(--tw-mask-radial-size) at var(--tw-mask-radial-position), var(--tw-mask-radial-from-color) var(--tw-mask-radial-from-position), var(--tw-mask-radial-to-color) var(--tw-mask-radial-to-position);
+    --tw-mask-radial: radial-gradient(var(--tw-mask-radial-stops));
+    --tw-mask-radial-from-position: calc(var(--spacing) * 100);
+  }
+  .mask-radial-from-100\% {
+    mask-image: var(--tw-mask-linear), var(--tw-mask-radial), var(--tw-mask-conic);
+    mask-composite: intersect;
+    --tw-mask-radial-stops: var(--tw-mask-radial-shape) var(--tw-mask-radial-size) at var(--tw-mask-radial-position), var(--tw-mask-radial-from-color) var(--tw-mask-radial-from-position), var(--tw-mask-radial-to-color) var(--tw-mask-radial-to-position);
+    --tw-mask-radial: radial-gradient(var(--tw-mask-radial-stops));
+    --tw-mask-radial-from-position: 100%;
+  }
+  .mask-radial-at-center {
+    --tw-mask-radial-position: center;
+  }
+  .mask-radial-at-left {
+    --tw-mask-radial-position: left;
+  }
+  .mask-add {
+    mask-composite: add;
+  }
+  .mask-center {
+    mask-position: center;
   }
   .fill-white {
     fill: var(--color-white);
@@ -651,14 +699,35 @@
     --tw-font-weight: var(--font-weight-medium);
     font-weight: var(--font-weight-medium);
   }
+  .text-\[\#000000\] {
+    color: #000000;
+  }
   .text-\[\#1d9bf0\] {
     color: #1d9bf0;
+  }
+  .text-\[\#0022ff\] {
+    color: #0022ff;
+  }
+  .text-\[\#0022ffc6\] {
+    color: #0022ffc6;
   }
   .text-\[\#61d6a3\] {
     color: #61d6a3;
   }
+  .text-\[\#102be1\] {
+    color: #102be1;
+  }
+  .text-\[\#55555\] {
+    color: #55555;
+  }
   .text-\[\#71767b\] {
     color: #71767b;
+  }
+  .text-\[\#555555\] {
+    color: #555555;
+  }
+  .text-\[\#\] {
+    color: #;
   }
   .text-\[\#ffffff69\] {
     color: #ffffff69;
@@ -719,6 +788,20 @@
       }
     }
   }
+  .hover\:bg-\[\#1d9bf0\] {
+    &:hover {
+      @media (hover: hover) {
+        background-color: #1d9bf0;
+      }
+    }
+  }
+  .hover\:bg-\[\#2f3336\] {
+    &:hover {
+      @media (hover: hover) {
+        background-color: #2f3336;
+      }
+    }
+  }
   .hover\:bg-\[\#7d7d7d\] {
     &:hover {
       @media (hover: hover) {
@@ -737,6 +820,13 @@
     &:hover {
       @media (hover: hover) {
         background-color: #212121;
+      }
+    }
+  }
+  .hover\:bg-black {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-black);
       }
     }
   }
@@ -812,6 +902,26 @@
     }
   }
 }
+@property --tw-rotate-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-y {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-z {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-y {
+  syntax: "*";
+  inherits: false;
+}
 @property --tw-space-y-reverse {
   syntax: "*";
   inherits: false;
@@ -826,6 +936,56 @@
   syntax: "*";
   inherits: false;
   initial-value: solid;
+}
+@property --tw-mask-linear {
+  syntax: "*";
+  inherits: false;
+  initial-value: linear-gradient(#fff, #fff);
+}
+@property --tw-mask-radial {
+  syntax: "*";
+  inherits: false;
+  initial-value: linear-gradient(#fff, #fff);
+}
+@property --tw-mask-conic {
+  syntax: "*";
+  inherits: false;
+  initial-value: linear-gradient(#fff, #fff);
+}
+@property --tw-mask-radial-from-position {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0%;
+}
+@property --tw-mask-radial-to-position {
+  syntax: "*";
+  inherits: false;
+  initial-value: 100%;
+}
+@property --tw-mask-radial-from-color {
+  syntax: "*";
+  inherits: false;
+  initial-value: black;
+}
+@property --tw-mask-radial-to-color {
+  syntax: "*";
+  inherits: false;
+  initial-value: transparent;
+}
+@property --tw-mask-radial-shape {
+  syntax: "*";
+  inherits: false;
+  initial-value: ellipse;
+}
+@property --tw-mask-radial-size {
+  syntax: "*";
+  inherits: false;
+  initial-value: farthest-corner;
+}
+@property --tw-mask-radial-position {
+  syntax: "*";
+  inherits: false;
+  initial-value: center;
 }
 @property --tw-leading {
   syntax: "*";
@@ -953,9 +1113,24 @@
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
     *, ::before, ::after, ::backdrop {
+      --tw-rotate-x: initial;
+      --tw-rotate-y: initial;
+      --tw-rotate-z: initial;
+      --tw-skew-x: initial;
+      --tw-skew-y: initial;
       --tw-space-y-reverse: 0;
       --tw-space-x-reverse: 0;
       --tw-border-style: solid;
+      --tw-mask-linear: linear-gradient(#fff, #fff);
+      --tw-mask-radial: linear-gradient(#fff, #fff);
+      --tw-mask-conic: linear-gradient(#fff, #fff);
+      --tw-mask-radial-from-position: 0%;
+      --tw-mask-radial-to-position: 100%;
+      --tw-mask-radial-from-color: black;
+      --tw-mask-radial-to-color: transparent;
+      --tw-mask-radial-shape: ellipse;
+      --tw-mask-radial-size: farthest-corner;
+      --tw-mask-radial-position: center;
       --tw-leading: initial;
       --tw-font-weight: initial;
       --tw-shadow: 0 0 #0000;
