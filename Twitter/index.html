@@ -27,7 +27,7 @@
 </head>
 
 <body class="bg-black text-white  ">
-    <div class=" flex container mx-auto  ">
+    <div class="flex container max-w-1400px mx-auto">
         <div class="box1 sticky top-0 pt-3 h-screen w-[25%]">
             <div class="logo fill-white pb-3 mx-4"><svg viewBox="0 0 24 24" aria-hidden="true"
                     class=" w-8 r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-lrvibr r-m6rgpd r-lrsllp r-1nao33i r-16y2uox r-8kz0gk">
@@ -179,42 +179,131 @@
                             </g>
                         </svg>More
                     </li>
+                    <button
+                        class="bg-white mt-5 w-full flex items-center justify-center text-black px-24 py-3 rounded-full text-lg hover:bg-[#7d7d7d] transition">
+                        Post
+                    </button>
                 </ul>
             </div>
 
-            <button class="bg-white mt-5 text-black px-24 py-3 rounded-full text-lg hover:bg-[#7d7d7d] transition">
-                Post
-            </button>
         </div>
 
 
 
-        <div class="box2 w-[50%]  border-x border-[#ffffff69]">
-<div class="suggNav sticky top-0 z-10 bg-black/70 text-xl  font-bold backdrop-blur-md  flex justify-around border-y border-[#ffffff69]"
->              
-                <div class="FORYOU p-4 relative hover:bg-[#212121] transition w-1/2      "> For You
-                    <div class="w-25 absolute h-10 bg-blue-500"></div>
+        <div class="box2 w-[50%] min-h-screen border-x border-[#2f3336]">
+
+            <!-- NAV -->
+            <div class="sticky top-0 z-50 bg-black/80 backdrop-blur-xl">
+
+                <div class="relative flex">
+
+                    <!-- FOR YOU -->
+                    <div
+                        class="relative w-1/2 flex justify-center items-center py-4 hover:bg-[#16181c] transition cursor-pointer">
+
+                        <span class="text-xl font-bold text-white">
+                            For You
+                        </span>
+
+                        <!-- BLUE BAR -->
+                        <div class="absolute bottom-0 w-14 h-1 bg-[#1d9bf0] rounded-full"></div>
+
+                    </div>
+
+                    <!-- FOLLOWING -->
+                    <div
+                        class="w-1/2 flex justify-center items-center py-4 hover:bg-[#16181c] transition cursor-pointer">
+
+                        <span class="text-xl font-bold text-[#71767b]">
+                            Following
+                        </span>
+
+                    </div>
+
                 </div>
-                <div class="following p-4 hover:bg-[#212121] transition w-1/2 flex justify-center items-center">following
+
+                <!-- BORDER -->
+                <div class="h-px w-full bg-[#2f3336]"></div>
+                <div class="postarea">
+
+
+                    <form>
+                        <div
+                            class="w-full border-[#2f3336] mb-4 border border-default-medium rounded-base bg-neutral-secondary-medium shadow-xs">
+                            <div class="px-4 py-2 bg-neutral-secondary-medium rounded-t-base">
+                                <label for="comment" class="sr-only">What’s happening</label>
+                                <textarea id="comment" rows="4"
+                                    class="block w-full px-0  font-light text-xl text-heading bg-neutral-secondary-medium border-0 focus:ring-0 placeholder:text-body"
+                                    placeholder="What’s happening?" required></textarea>
+                            </div>
+                            <div
+                                class="flex border-[#2f3336] justify-between items-center px-3 py-2 border-t border-default-medium">
+                                <div class="flex ps-0 space-x-1 rtl:space-x-reverse sm:ps-2">
+                                    <button type="button"
+                                        class="p-2 text-body rounded-sm cursor-pointer hover:text-heading hover:bg-neutral-tertiary-medium">
+                                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M15 9h.01M8.99 9H9m12 3a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM6.6 13a5.5 5.5 0 0 0 10.81 0H6.6Z" />
+                                        </svg>
+                                        <span class="sr-only">Add emoji</span>
+                                    </button>
+                                    <button type="button"
+                                        class="p-2 text-body rounded-sm cursor-pointer hover:text-heading hover:bg-neutral-tertiary-medium">
+                                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M7 8v8a5 5 0 1 0 10 0V6.5a3.5 3.5 0 1 0-7 0V15a2 2 0 0 0 4 0V8" />
+                                        </svg>
+                                        <span class="sr-only">Attach file</span>
+                                    </button>
+                                    <button type="button"
+                                        class="p-2 text-body rounded-sm cursor-pointer hover:text-heading hover:bg-neutral-tertiary-medium">
+                                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z" />
+                                        </svg>
+                                        <span class="sr-only">Embed map</span>
+                                    </button>
+                                    <button type="button"
+                                        class="p-2 text-body rounded-sm cursor-pointer hover:text-heading hover:bg-neutral-tertiary-medium">
+                                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="M16 18H8l2.5-6 2 4 1.5-2 2 4Zm-1-8.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z" />
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M10 3v4a1 1 0 0 1-1 1H5m14-4v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1ZM8 18h8l-2-4-1.5 2-2-4L8 18Zm7-8.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z" />
+                                        </svg>
+                                        <span class="sr-only">Upload image</span>
+                                    </button>
+                                </div>
+                                <button type="submit"
+                                    class="text-black font-bold bg-brand bg-[#2f3336] rounded-4xl box-border  hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs leading-5 rounded-base text-sm px-3 py-2 focus:outline-none">Post</button>
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
+
+                <div class="text-blue-500 flex justify-center pb-4">Show 172 Posts</div>
+
+                <div class="h-px w-full bg-[#2f3336]"></div>
+
+
+
+
+
             </div>
 
-<div class="post  p-4">
-    <div class="border border-[#2f3336] rounded-2xl p-4 mb-4">
-        First Post
-    </div>
-
-    <div class="border border-[#2f3336] rounded-2xl p-4 mb-4">
-        Second Post
-    </div>
-
-    <div class="border border-[#2f3336] rounded-2xl p-4 mb-4">
-        Third Post
-    </div>
-</div> 
 
         </div>
-
         <div class="box3 w-[25%] ml-5 p-2">
             <div class="searchbar sticky top-2 z-10  bg-black flex border border-[#ffffff69] rounded-3xl p-2 w-full">
                 <svg viewBox="0 0 24 24" aria-hidden="true"
