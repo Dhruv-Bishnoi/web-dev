@@ -1,12 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="src/output.css">
+    <title>X Clone</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="absolute border-2 border-black w-100 h-100 "><div class="border-black border-2 w-40 h-2 bg-amber-700 absolute bottom-0 "></div></div>
+
+<body class="bg-black text-white">
+
+    <div class="max-w-2xl mx-auto p-5">
+
+        <!-- POST BOX -->
+        <div class="border border-[#2f3336] rounded-2xl p-4">
+
+            <textarea
+                id="postText"
+                placeholder="What's happening?"
+                class="w-full bg-black outline-none text-xl resize-none"
+            ></textarea>
+
+            <!-- PREVIEW -->
+            <img
+                id="previewImage"
+                class="hidden mt-4 rounded-2xl w-full max-h-400px object-cover"
+            >
+
+            <!-- BUTTONS -->
+            <div class="flex justify-between items-center mt-4">
+
+                <button
+                    id="uploadBtn"
+                    class="text-2xl"
+                >
+                    🖼️
+                </button>
+
+                <button
+                    id="postBtn"
+                    class="bg-[#1d9bf0] px-5 py-2 rounded-full font-bold"
+                >
+                    Post
+                </button>
+
+            </div>
+
+            <!-- HIDDEN INPUT -->
+            <input
+                id="imageInput"
+                type="file"
+                accept="image/*"
+                class="hidden"
+            >
+
+        </div>
+
+
+        <!-- POSTS -->
+        <div id="postsContainer" class="mt-5 space-y-5"></div>
+
+    </div>
+
+    <script src="script.js"></script>
+
 </body>
+
 </html>
