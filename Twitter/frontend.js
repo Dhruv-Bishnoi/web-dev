@@ -1,123 +1,157 @@
+let allPosts = JSON.parse(localStorage.getItem("posts")) || []
+
+
+
 const uploadBtn = document.getElementById("uploadBtn")
-console.log(uploadBtn)
-const imageInput = document.getElementById("imageInput")
-const previewImage = document.getElementById("previewImage")
 
-const postBtn = document.getElementById("postBtn")
-const postText = document.getElementById("postText")
-const postsContainer = document.getElementById("postsContainer")
+const imageInputimg = document.getElementById("imageInput")
 
-let uploadedImageUrl = ""
+const preview = document.getElementById("preview")
+
+const submitBtn = document.getElementById("submitBtn")
+
+const textarea = document.getElementById("comment")
+
+const con = document.querySelector(".postsArea")
+
+
 
 
 // OPEN FILE PICKER
 uploadBtn.addEventListener("click", () => {
 
-    imageInput.click()
+    imageInputimg.click()
 
 })
 
 
-// IMAGE SELECT
-imageInput.addEventListener("change", async () => {
-
-    const file = imageInput.files[0]
-
-    if(!file) return
-
-    // PREVIEW
-    previewImage.src = URL.createObjectURL(file)
-
-    previewImage.classList.remove("hidden")
 
 
-    // SEND TO BACKEND
-    const formData = new FormData()
+// IMAGE PREVIEW
+imageInputimg.addEventListener("change", () => {
 
-    formData.append("image", file)
+    let file = imageInputimg.files[0]
 
+    if(file){
 
-    const response = await fetch("/upload", {
+        preview.src = URL.createObjectURL(file)
 
-        method: "POST",
-
-        body: formData
-
-    })
-
-    const data = await response.json()
-
-    uploadedImageUrl = data.imageUrl
-
-})
-
-
-// CREATE POST
-postBtn.addEventListener("click", () => {
-
-    const text = postText.value
-
-    if(text.trim() === "" && uploadedImageUrl === ""){
-        return
     }
+
+})
+
+
+
+
+// CREATE POST FUNCTION
+function createPost(postData){
 
     const post = document.createElement("div")
 
+
     post.className = `
-    border border-[#2f3336]
-    rounded-2xl
+    border-b border-[#2f3336]
+    text-white
     p-4
     `
 
+
     post.innerHTML = `
 
-        <div class="flex gap-3">
+    <div class="flex gap-3">
 
-            <img
-            src="https://pbs.twimg.com/profile_images/2020848627246313472/WJxfmupz_400x400.jpg"
-            class="w-12 h-12 rounded-full object-cover"
-            >
+        <img
+        src="https://pbs.twimg.com/profile_images/2020848627246313472/WJxfmupz_400x400.jpg"
+        class="w-12 h-12 rounded-full object-cover"
+        >
 
-            <div class="w-full">
+        <div class="w-full">
 
-                <div class="font-bold">
-                    Beniwal
-                </div>
-
-                <div class="mt-2 text-lg">
-                    ${text}
-                </div>
-
-                ${
-                    uploadedImageUrl
-                    ?
-                    `
-                    <img
-                    src="${uploadedImageUrl}"
-                    class="mt-4 rounded-2xl w-full max-h-[500px] object-cover"
-                    >
-                    `
-                    :
-                    ""
-                }
-
+            <div class="font-bold">
+                Beniwal
             </div>
+
+            <div class="mt-2 text-[17px]">
+                ${postData.caption}
+            </div>
+
+            ${
+                postData.image
+                ?
+                `
+                <img
+                src="${postData.image}"
+                class="mt-4 rounded-2xl w-full max-h-[500px] object-cover"
+                >
+                `
+                :
+                ""
+            }
 
         </div>
 
+    </div>
+
     `
 
-    postsContainer.prepend(post)
+
+    con.prepend(post)
+
+}
+
+
+
+
+// SHOW SAVED POSTS
+allPosts.forEach((postData)=>{
+
+    createPost(postData)
+
+})
+
+
+
+
+// POST BUTTON
+submitBtn.addEventListener("click", (e) => {
+
+    e.preventDefault()
+
+    const caption = textarea.value.trim()
+
+    const image = preview.src
+
+
+    if(caption === "" && image === ""){
+        return
+    }
+
+
+    const postData = {
+
+        caption: caption,
+
+        image: image
+
+    }
+
+
+    // SAVE IN ARRAY
+    allPosts.push(postData)
+
+
+    // SAVE IN LOCAL STORAGE
+    localStorage.setItem("posts", JSON.stringify(allPosts))
+
+
+    // SHOW POST
+    createPost(postData)
+
+
 
     // RESET
-    postText.value = ""
+    textarea.value = ""
 
-    previewImage.src = ""
-
-    previewImage.classList.add("hidden")
-
-    uploadedImageUrl = ""
-
-    imageInput.value = ""
+    preview.src = ""
 
 })

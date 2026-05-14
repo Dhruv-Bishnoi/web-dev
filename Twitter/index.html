@@ -229,6 +229,8 @@
 
 
                     <form>
+                         <input id="imageInput" type="file" accept="image/*" class="hidden"           >
+                            <img id="preview"  src="" ></img>
                         <div
                             class="w-full border-[#2f3336] mb-4 border border-default-medium rounded-base bg-neutral-secondary-medium shadow-xs">
                             <div class="in p-3 flex ">
@@ -275,8 +277,8 @@
                                         </svg>
                                         <span class="sr-only">Embed map</span>
                                     </button>
-                                    <button type="button"
-                                        class="p-2 text-body rounded-sm cursor-pointer hover:text-heading hover:bg-neutral-tertiary-medium">
+                                    <button type="button" id="uploadBtn" 
+                                        class=" p-2 text-body rounded-sm cursor-pointer hover:text-heading hover:bg-neutral-tertiary-medium">
                                         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                             width="24" height="24" fill="" viewBox="0 0 24 24">
                                             <path fill="currentColor"
@@ -288,7 +290,7 @@
                                         <span class="sr-only">Upload image</span>
                                     </button>
                                 </div>
-                                <button type="submit"
+                                <button type="submit" id="submitBtn"
                                     class="text-black font-bold hover:bg-[#1d9bf0] transition  bg-[#2f3336] rounded-4xl box-border  hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs leading-5 rounded-base text-sm px-3 py-2 focus:outline-none">Post</button>
                             </div>
                         </div>
@@ -304,6 +306,15 @@
 
 
 
+            </div>
+
+            <div class="postsArea">
+
+                <div class="temp">
+
+                    <img src="" alt="">
+                    <div class="texts"></div>
+                </div>
             </div>
 
 
@@ -431,7 +442,7 @@
 
 
     </div>
-
+    <script src="frontend.js"></script>
 
 </body>
 
