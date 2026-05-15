@@ -28,6 +28,7 @@ const upload = multer({ storage })
 // IMAGE UPLOAD
 
 app.post("/upload", upload.single("image"), (req, res) => {
+    console.log("hello")
 
     res.json({
 

@@ -1,5 +1,4 @@
-let allPosts = JSON.parse(localStorage.getItem("posts")) || []
-
+const formData = new FormData()
 
 
 const uploadBtn = document.getElementById("uploadBtn")
@@ -43,38 +42,40 @@ imageInputimg.addEventListener("change", () => {
 
 
 
+
+
 // CREATE POST FUNCTION
 function createPost(postData){
 
     const post = document.createElement("div")
-
-
+    
+    
     post.className = `
     border-b border-[#2f3336]
     text-white
     p-4
     `
-
-
+    
+    
     post.innerHTML = `
 
     <div class="flex gap-3">
-
-        <img
+    
+    <img
         src="https://pbs.twimg.com/profile_images/2020848627246313472/WJxfmupz_400x400.jpg"
         class="w-12 h-12 rounded-full object-cover"
         >
-
+        
         <div class="w-full">
-
-            <div class="font-bold">
-                Beniwal
+        
+        <div class="font-bold">
+        Beniwal
+        </div>
+        
+        <div class="mt-2 text-[17px]">
+        ${postData.caption}
             </div>
-
-            <div class="mt-2 text-[17px]">
-                ${postData.caption}
-            </div>
-
+            
             ${
                 postData.image
                 ?
@@ -87,54 +88,51 @@ function createPost(postData){
                 :
                 ""
             }
-
-        </div>
-
-    </div>
-
-    `
-
-
-    con.prepend(post)
+            
+            </div>
+            
+            </div>
+            
+            `
+            
+            
+            con.prepend(post)
 
 }
 
 
 
 
-// SHOW SAVED POSTS
-allPosts.forEach((postData)=>{
-
-    createPost(postData)
-
-})
 
 
 
 
 // POST BUTTON
 submitBtn.addEventListener("click", (e) => {
-
+    
     e.preventDefault()
-
+    
     const caption = textarea.value.trim()
-
+    
     const image = preview.src
-
-
+    
+    
     if(caption === "" && image === ""){
         return
     }
+    
+    
+    formData.append("caption" , caption)
+    formData.append("image" , image)
+    
 
 
-    const postData = {
+ fetch("/upload" ,{
+        method:"post",
+        body:"fromData"
+    })
 
-        caption: caption,
-
-        image: image
-
-    }
-
+    
 
     // SAVE IN ARRAY
     allPosts.push(postData)
