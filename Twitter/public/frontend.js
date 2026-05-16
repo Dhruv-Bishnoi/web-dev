@@ -1,5 +1,3 @@
-const formData = new FormData()
-
 
 const uploadBtn = document.getElementById("uploadBtn")
 
@@ -13,12 +11,21 @@ const textarea = document.getElementById("comment")
 
 const con = document.querySelector(".postsArea")
 
+textarea.addEventListener("input", ()=>{
 
+    textarea.style.height = "auto"
+
+    textarea.style.height = textarea.scrollHeight + "px"
+
+})
 
 
 // OPEN FILE PICKER
 uploadBtn.addEventListener("click", () => {
 
+    textarea.style.height = "100px"
+
+    
     imageInputimg.click()
 
 })
@@ -28,15 +35,16 @@ uploadBtn.addEventListener("click", () => {
 
 // IMAGE PREVIEW
 imageInputimg.addEventListener("change", () => {
-
+    
     let file = imageInputimg.files[0]
-
-    if(file){
-
+    console.log(file)
+    
+    if (file) {
+        
         preview.src = URL.createObjectURL(file)
-
+        
     }
-
+    
 })
 
 
@@ -45,14 +53,15 @@ imageInputimg.addEventListener("change", () => {
 
 
 // CREATE POST FUNCTION
-function createPost(postData){
-
+function createPost(postData) {
+    
     const post = document.createElement("div")
     
     
     post.className = `
     border-b border-[#2f3336]
-    text-white
+    text-[#rgb(231, 233, 234);]
+    
     p-4
     `
     
@@ -62,94 +71,109 @@ function createPost(postData){
     <div class="flex gap-3">
     
     <img
-        src="https://pbs.twimg.com/profile_images/2020848627246313472/WJxfmupz_400x400.jpg"
-        class="w-12 h-12 rounded-full object-cover"
+    src="https://pbs.twimg.com/profile_images/2020848627246313472/WJxfmupz_400x400.jpg"
+    class="w-12 h-12 rounded-full object-cover"
+    >
+    
+    <div class="w-full">
+    
+    <div class="font-bold">
+    Beniwal
+    </div>
+    
+    <div class="mt-2 text-[17px] whitespace-pre-wrap break-words">${postData.caption}</div>
+    
+    ${
+        postData.image
+        ?
+        `
+        <img
+        src="${postData.image}"
+        class="mt-4 rounded-2xl w-full max-h-[500px] object-cover"
         >
-        
-        <div class="w-full">
-        
-        <div class="font-bold">
-        Beniwal
-        </div>
-        
-        <div class="mt-2 text-[17px]">
-        ${postData.caption}
-            </div>
-            
-            ${
-                postData.image
-                ?
-                `
-                <img
-                src="${postData.image}"
-                class="mt-4 rounded-2xl w-full max-h-[500px] object-cover"
-                >
-                `
-                :
-                ""
-            }
-            
-            </div>
-            
-            </div>
-            
-            `
-            
-            
-            con.prepend(post)
-
+        `
+        :
+        ""
+    }
+    
+    </div>
+    
+    </div>
+    
+    `
+    
+    
+    con.prepend(post)
+    
 }
 
 
 
 
 
+async function loadPosts() {
+
+    const response = await fetch("/posts")
+
+    const posts = await response.json()
+
+    posts.forEach(post => {
+
+        createPost(post)
+
+    })
+
+}
 
 
-
-// POST BUTTON
 submitBtn.addEventListener("click", (e) => {
     
     e.preventDefault()
     
-    const caption = textarea.value.trim()
+    const formData = new FormData()
+const caption = textarea.value.trimStart()
+    const file = imageInputimg.files[0]
+
+    formData.append("image", file)
+    formData.append("caption", caption)
     
-    const image = preview.src
-    
-    
-    if(caption === "" && image === ""){
+
+
+
+    if (caption === "" && !file) {
         return
     }
-    
-    
-    formData.append("caption" , caption)
-    formData.append("image" , image)
-    
 
 
- fetch("/upload" ,{
-        method:"post",
-        body:"fromData"
-    })
+    fetch("/create-post", {
 
-    
+            method: "POST",
+            body: formData
 
-    // SAVE IN ARRAY
-    allPosts.push(postData)
+        })
+        .then((res) => res.text())
+
+        .then((data) => {
+            loadPosts()
+
+            
+      
+            // CLEAR INPUTS
+            textarea.value = ""
+
+            preview.src = ""
+
+            imageInputimg.value = ""
 
 
-    // SAVE IN LOCAL STORAGE
-    localStorage.setItem("posts", JSON.stringify(allPosts))
+        })
 
 
-    // SHOW POST
-    createPost(postData)
+  
 
 
 
-    // RESET
-    textarea.value = ""
-
-    preview.src = ""
 
 })
+
+loadPosts()

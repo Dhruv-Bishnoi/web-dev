@@ -53,6 +53,8 @@ imageInput.addEventListener("change", async () => {
 })
 
 
+
+
 // CREATE POST
 postBtn.addEventListener("click", () => {
 
