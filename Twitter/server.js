@@ -37,9 +37,11 @@ const postSchema = new mongoose.Schema({
 
 const userdata = new mongoose.Schema({
 
-    Username:String,
-    Passward:String,
-    email:String,
+    username:String,
+
+    password:String,
+
+    gmail:String
 
 })
 
@@ -47,11 +49,7 @@ const userdata = new mongoose.Schema({
 
 const Post = mongoose.model("Post", postSchema)
 const user = mongoose.model("user", userdata)
-
-
-
 const app = express()
-
 
 app.use(express.static("public"))
 
@@ -67,24 +65,66 @@ const __dirname = path.dirname(__filename)
 
 
 // HOME PAGE
-app.get("/", (req,res)=>{
+app.get("/signup",(req,res)=>{
 
-    res.sendFile()
-
-})
-
-
-app.get("/login" ,(req,res)=>{
-
-    console.log("data receved")
+    res.sendFile(path.join(__dirname,"public","signup.html"))
 
 })
 
 
+app.post("/signup", async (req,res)=>{
+
+    console.log("data received")
+
+    const newuser = await user.create({
+
+            username:req.body.username,
+            password:req.body.password,
+            gmail:req.body.gmail
+    })
+    .then(console.log("added done"))
 
 
 
+})
 
+app.get("/login",(req,res)=>{
+
+    res.sendFile(path.join(__dirname,"public","login.html"))
+
+})
+
+app.post("/login", async (req,res)=>{
+
+    console.log("data received")
+
+   const userfind = await user.findOne({
+        username:req.body.username,
+            password:req.body.password,
+            gmail:req.body.gmail
+    })
+
+
+        if(userfind){
+            res.json({
+                success:true,
+                 message:"Login Success",
+            })
+        }
+        else{
+
+        res.json({
+
+            success:false,
+
+            message:"Invalid Credentials"
+
+        })
+
+        }
+
+
+})
 
 // IMAGE STORAGE
 const storage = multer.diskStorage({

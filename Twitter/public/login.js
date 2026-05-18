@@ -1,36 +1,55 @@
-const username = document.getElementById("Username") 
-const passward = document.getElementById("passward") 
-const gmail = document.getElementById("gmail") 
+const username = document.getElementById("name")
 
-const userdata = new FormData()
+const password = document.getElementById("pass")
 
-username.addEventListener("change",()=>{
+const gmail = document.getElementById("mail")
 
-    
-const userN = username.value
-console.log(userN)
-userdata.append('username',userN)
+const submitBtn = document.getElementById("submitBtn")
 
+submitBtn.addEventListener("click",(e)=>{
 
-})
-passward.addEventListener("change",()=>{
-
-const pass = passward.value
-console.log(pass)
-userdata.append('passward' ,pass)
-})
-gmail.addEventListener("change",()=>{
-
-const valu = gmail.value
-
-userdata.append('gmail',gmail)
-})
+    e.preventDefault()
 
 
+    fetch("/login",{
 
-fetch("/login", {
-    method:"post",
-    body:userdata
+        method:"POST",
 
-    
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+
+            username:username.value,
+
+            password:password.value,
+
+            gmail:gmail.value
+
+        })
+
+    })
+
+    .then((res)=>res.json())
+
+    .then((data)=>{
+
+        console.log(data)
+
+
+        if(data.success){
+
+            window.location.href = "/"
+
+        }
+
+        else{
+
+            alert("Invalid Credentials")
+
+        }
+
+    })
+
 })
