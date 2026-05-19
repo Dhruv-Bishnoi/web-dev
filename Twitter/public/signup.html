@@ -3,18 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>signup-page</title>
+    <title>X Signup</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
-<body>
 
-    <h1>sign up</h1>
-    <input type="text" placeholder="Username" id="name" class="">
-    <input type="password" placeholder="passward" id="pass" class="">
-    <input type="email" placeholder="gmail"  id="mail" class="">
+<body class="bg-black text-white min-h-screen flex items-center justify-center">
+
+    <!-- MAIN CARD -->
+    <div class="w-full max-w-md border border-[#2f3336] rounded-2xl p-8 bg-black shadow-2xl">
+
+        <!-- LOGO -->
+        <div class="flex justify-center mb-8">
+
+            <h1 class="text-5xl font-bold">
+                X
+            </h1>
+
+        </div>
 
 
-        <button id="submitBtn">submit</button>
-    
+        <!-- TITLE -->
+        <h1 class="text-3xl font-bold mb-8 text-center">
+            Create your account
+        </h1>
+
+
+
+        <!-- FORM -->
+        <form class="space-y-5">
+
+            <!-- USERNAME -->
+            <div>
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Username"
+                    class="w-full bg-black border border-[#2f3336] rounded-lg px-4 py-4 text-white outline-none focus:border-[#1d9bf0] transition"
+                >
+
+            </div>
+
+
+
+            <!-- EMAIL -->
+            <div>
+
+                <input
+                    type="email"
+                    id="mail"
+                    placeholder="Email"
+                    class="w-full bg-black border border-[#2f3336] rounded-lg px-4 py-4 text-white outline-none focus:border-[#1d9bf0] transition"
+                >
+
+            </div>
+
+
+
+            <!-- PASSWORD -->
+            <div>
+
+                <input
+                    type="password"
+                    id="pass"
+                    placeholder="Password"
+                    class="w-full bg-black border border-[#2f3336] rounded-lg px-4 py-4 text-white outline-none focus:border-[#1d9bf0] transition"
+                >
+
+            </div>
+
+
+
+            <!-- PROFILE IMAGE -->
+            <div>
+
+                <label class="block text-sm text-[#71767b] mb-2">
+                    Profile Photo
+                </label>
+
+                <input
+                    type="file"
+                    id="profile"
+                    accept="image/*"
+                    class="w-full text-sm text-[#71767b]
+                    file:mr-4
+                    file:py-2
+                    file:px-4
+                    file:rounded-full
+                    file:border-0
+                    file:text-sm
+                    file:font-semibold
+                    file:bg-[#1d9bf0]
+                    file:text-white
+                    hover:file:bg-[#1a8cd8]"
+                >
+
+            </div>
+
+
+
+            <!-- SIGNUP BUTTON -->
+            <button
+                id="submitBtn"
+                class="w-full bg-white text-black font-bold py-3 rounded-full hover:bg-[#d7dbdc] transition"
+            >
+                Create Account
+            </button>
+
+        </form>
+
+
+
+        <!-- OR -->
+        <div class="flex items-center gap-4 my-6">
+
+            <div class="h-[1px] bg-[#2f3336] w-full"></div>
+
+            <span class="text-[#71767b] text-sm">
+                OR
+            </span>
+
+            <div class="h-[1px] bg-[#2f3336] w-full"></div>
+
+        </div>
+
+
+
+        <!-- LOGIN -->
+        <div class="text-center">
+
+            <span class="text-[#71767b]">
+                Already have an account?
+            </span>
+
+            <a
+                href="/login"
+                class="text-[#1d9bf0] hover:underline ml-1"
+            >
+                Sign in
+            </a>
+
+        </div>
+
+    </div>
+
     <script src="signup.js"></script>
+
 </body>
 </html>

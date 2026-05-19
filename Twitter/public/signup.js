@@ -6,6 +6,8 @@ const gmail = document.getElementById("mail")
 
 const submitBtn = document.getElementById("submitBtn")
 
+const profile = document.getElementById("profile")
+
 
 
 submitBtn.addEventListener("click",(e)=>{
@@ -13,31 +15,48 @@ submitBtn.addEventListener("click",(e)=>{
     e.preventDefault()
 
 
-    
-   fetch("/signup",{
+    const file = profile.files[0]
 
-    method:"POST",
 
-    headers:{
-        "Content-Type":"application/json"
-    },
+    const formData = new FormData()
 
-    body:JSON.stringify({
 
-        username:username.value,
+    formData.append("username", username.value)
 
-        password:password.value,
-        gmail:gmail.value
+    formData.append("password", password.value)
+
+    formData.append("gmail", gmail.value)
+
+    formData.append("profile", file)
+
+
+
+    fetch("/signup",{
+
+        method:"POST",
+
+        body:formData
 
     })
-
-})
 
     .then((res)=>res.json())
 
     .then((data)=>{
 
         console.log(data)
+
+
+        if(data.success){
+            alert("Signup Successful ,Please Login")
+            window.location.href = "/login"
+
+        }
+
+        else{
+
+            alert("Signup Failed")
+
+        }
 
     })
 

@@ -13,11 +13,15 @@ submitBtn.addEventListener("click",(e)=>{
 
     fetch("/login",{
 
+        
+
         method:"POST",
+        
 
         headers:{
             "Content-Type":"application/json"
         },
+        
 
         body:JSON.stringify({
 
@@ -28,6 +32,7 @@ submitBtn.addEventListener("click",(e)=>{
             gmail:gmail.value
 
         })
+        
 
     })
 

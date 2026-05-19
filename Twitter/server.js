@@ -41,7 +41,9 @@ const userdata = new mongoose.Schema({
 
     password:String,
 
-    gmail:String
+    gmail:String,
+
+    PPF:String
 
 })
 
@@ -62,31 +64,6 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 
-
-
-// HOME PAGE
-app.get("/signup",(req,res)=>{
-
-    res.sendFile(path.join(__dirname,"public","signup.html"))
-
-})
-
-
-app.post("/signup", async (req,res)=>{
-
-    console.log("data received")
-
-    const newuser = await user.create({
-
-            username:req.body.username,
-            password:req.body.password,
-            gmail:req.body.gmail
-    })
-    .then(console.log("added done"))
-
-
-
-})
 
 app.get("/login",(req,res)=>{
 
@@ -132,7 +109,7 @@ const storage = multer.diskStorage({
     destination: (req,file,cb)=>{
 
         cb(null, "public/img")
-
+        
     },
 
     filename: (req,file,cb)=>{
@@ -155,6 +132,52 @@ console.log(totalPosts)
 
 
 
+
+// HOME PAGE
+app.get("/signup",(req,res)=>{
+
+    res.sendFile(path.join(__dirname,"public","signup.html"))
+
+})
+
+app.post("/signup",
+
+upload.single("profile"),
+
+async(req,res)=>{
+
+    console.log("data received")
+
+
+    const newuser = await user.create({
+
+        username:req.body.username,
+
+        password:req.body.password,
+
+        gmail:req.body.gmail,
+
+        PPF:req.file
+        ?
+        `/img/${req.file.filename}`
+        :
+        ""
+
+    })
+
+
+    console.log("added done")
+
+
+    res.json({
+
+        success:true,
+
+        user:newuser
+
+    })
+
+})
 app.get("/posts" ,async (req,res)=>{
     const Posts = await Post.find() 
 
@@ -168,9 +191,10 @@ upload.single("image"),
 async(req,res)=>{
     
     console.log(req.file)
+    
 
     const newPost = await Post.create({
-
+    
         caption: req.body.caption,
         
         image: req.file
