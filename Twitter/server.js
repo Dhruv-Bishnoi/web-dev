@@ -6,7 +6,6 @@ import { fileURLToPath } from "url"
 import { count } from "console"
 
 
-
 mongoose.connect("mongodb://localhost:27017/twitter")
 
 
@@ -23,6 +22,9 @@ const postSchema = new mongoose.Schema({
     caption: String,
 
     image: String,
+    reshare:Number,
+    like:Number,
+    comment:Number,   
 
     createdAt: {
 
@@ -65,44 +67,6 @@ const __dirname = path.dirname(__filename)
 
 
 
-app.get("/login",(req,res)=>{
-
-    res.sendFile(path.join(__dirname,"public","login.html"))
-
-})
-
-app.post("/login", async (req,res)=>{
-
-    console.log("data received")
-
-   const userfind = await user.findOne({
-        username:req.body.username,
-            password:req.body.password,
-            gmail:req.body.gmail
-    })
-
-
-        if(userfind){
-            res.json({
-                success:true,
-                 message:"Login Success",
-            })
-        }
-        else{
-
-        res.json({
-
-            success:false,
-
-            message:"Invalid Credentials"
-
-        })
-
-        }
-
-
-})
-
 // IMAGE STORAGE
 const storage = multer.diskStorage({
 
@@ -137,38 +101,38 @@ console.log(totalPosts)
 app.get("/signup",(req,res)=>{
 
     res.sendFile(path.join(__dirname,"public","signup.html"))
-
+    
 })
 
 app.post("/signup",
-
-upload.single("profile"),
-
-async(req,res)=>{
-
+    
+    upload.single("profile"),
+    
+    async(req,res)=>{
+        
     console.log("data received")
 
 
     const newuser = await user.create({
-
+        
         username:req.body.username,
-
+        
         password:req.body.password,
-
+        
         gmail:req.body.gmail,
-
+        
         PPF:req.file
         ?
         `/img/${req.file.filename}`
         :
-        ""
-
+        "https://i.pinimg.com/originals/74/a3/b6/74a3b6a8856b004dfff824ae9668fe9b.jpg"
+        
     })
-
-
+    
+    
     console.log("added done")
-
-
+    
+    
     res.json({
 
         success:true,
@@ -176,6 +140,50 @@ async(req,res)=>{
         user:newuser
 
     })
+    
+})
+
+app.get("/login",(req,res)=>{
+
+    res.sendFile(path.join(__dirname,"public","login.html"))
+
+})
+
+app.post("/login", async (req,res)=>{
+
+    console.log("data received")
+
+   const userfind = await user.findOne({
+        username:req.body.username,
+            password:req.body.password,
+            gmail:req.body.gmail
+    })
+ 
+   
+
+  
+
+
+        if(userfind){
+            res.json({
+                success:true,
+                 message:"Login Success",
+                 user:userfind
+            })
+
+        }
+        else{
+
+        res.json({
+
+            success:false,
+
+            message:"Invalid Credentials"
+
+        })
+
+        }
+
 
 })
 app.get("/posts" ,async (req,res)=>{

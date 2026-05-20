@@ -10,6 +10,21 @@ const textarea = document.getElementById("comment")
 
 const con = document.querySelector(".postsArea")
 
+
+const currentUser = JSON.parse(
+    
+    localStorage.getItem("user")
+    
+)
+console.log(currentUser.PPF)
+
+
+const ppf = document.querySelectorAll("#PPFs");
+for (let i = 0; i < ppf.length; i++) {
+  ppf[i].src = currentUser.PPF;
+}
+
+
 textarea.addEventListener("input", () => {
 
     textarea.style.height = "auto"
@@ -70,7 +85,7 @@ function createPost(postData) {
 <div class="flex gap-3 hover:bg-[#0f0f0f] transition duration-200 px-4 py-3">
 
         <!-- PROFILE -->
-        <img src="https://pbs.twimg.com/profile_images/2020848627246313472/WJxfmupz_400x400.jpg"
+        <img src="${currentUser.PPF}"
             class="w-12 h-12 rounded-full object-cover shrink-0 mt-1">
 
 
@@ -144,7 +159,7 @@ function createPost(postData) {
                     </svg>
                 </div>
 
-                <div class="hover:text-[#f91880] cursor-pointer transition">
+                <div class="hover:text-[#f91880] cursor-pointer transition" id="like">
                     <svg viewBox="0 0 24 24" aria-hidden="true" class=" fill-white w-5
                     r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-lrvibr r-m6rgpd r-1xvli5t r-1hdv0qi">
                         <g>
@@ -215,6 +230,16 @@ async function loadPosts() {
         createPost(post)
 
     })
+    const isliked = false
+    const likes = document.getElementById("like")
+    likes.addEventListener("click",()=>{
+
+
+
+
+
+})
+
 
 }
 
@@ -270,3 +295,5 @@ submitBtn.addEventListener("click", (e) => {
 })
 
 loadPosts()
+
+

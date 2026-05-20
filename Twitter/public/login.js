@@ -39,13 +39,16 @@ submitBtn.addEventListener("click",(e)=>{
     .then((res)=>res.json())
 
     .then((data)=>{
-
-        console.log(data)
-
-
+        
+        
+        
         if(data.success){
-
+            
+           localStorage.setItem("user",JSON.stringify(data.user))
             window.location.href = "/"
+
+
+            
 
         }
 

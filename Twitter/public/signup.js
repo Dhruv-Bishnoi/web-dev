@@ -13,22 +13,40 @@ const profile = document.getElementById("profile")
 submitBtn.addEventListener("click",(e)=>{
 
     e.preventDefault()
+if(
+
+    !username.value ||
+
+    !password.value ||
+
+    !gmail.value
+
+){
+
+    alert("Please enter all fields")
+
+    return
+
+}
 
 
-    const file = profile.files[0]
+
+
+
+const file = profile.files[0]
 
 
     const formData = new FormData()
-
+    
 
     formData.append("username", username.value)
-
+    
     formData.append("password", password.value)
-
+    
     formData.append("gmail", gmail.value)
-
+    
     formData.append("profile", file)
-
+    
 
 
     fetch("/signup",{
