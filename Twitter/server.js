@@ -4,6 +4,8 @@ import path from "path"
 import mongoose from "mongoose"
 import { fileURLToPath } from "url"
 import { count } from "console"
+import { get } from "http"
+import strict from "assert/strict"
 
 
 mongoose.connect("mongodb://localhost:27017/twitter")
@@ -22,8 +24,15 @@ const postSchema = new mongoose.Schema({
     caption: String,
 
     image: String,
+
+    likelist:[String],
+
+    userid:String,
     reshare:Number,
-    like:Number,
+    like:{
+   type:Number,
+   default:0
+},
     comment:Number,   
 
     createdAt: {
@@ -45,7 +54,10 @@ const userdata = new mongoose.Schema({
 
     gmail:String,
 
-    PPF:String
+    PPF:String,
+
+    BIO:String
+    
 
 })
 
@@ -90,9 +102,7 @@ const upload = multer({ storage })
 
 
 
-const totalPosts = await Post.countDocuments()
 
-console.log(totalPosts)
 
 
 
@@ -204,8 +214,11 @@ async(req,res)=>{
     const newPost = await Post.create({
     
         caption: req.body.caption,
+
+        userid:req.body.userid,
         
         image: req.file
+
 ?
 `/img/${req.file.filename}`
 :
@@ -215,6 +228,55 @@ async(req,res)=>{
     res.json(newPost)
 })
 
+app.post("/findpost", async(req,res)=>{
+
+    const postinfo = await Post.findById(req.body.postId)
+    
+    
+    console.log(postinfo)
+
+
+
+    console.log("working")
+
+
+    res.json(postinfo)
+
+})
+app.post("/removelike", async(req,res)=>{
+
+    const postinfo = await Post.findById(req.body.postId)
+       postinfo.likelist.pull(req.body.userid)
+       postinfo.like -=1
+    await postinfo.save()
+    
+    console.log(postinfo)
+
+
+
+    console.log("worked romve")
+
+
+    res.json(postinfo)
+
+})
+app.post("/addlike", async(req,res)=>{
+
+    const postinfo = await Post.findById(req.body.postId)
+       postinfo.likelist.push(req.body.userid)
+       postinfo.like +=1
+    await postinfo.save()
+    
+    console.log(postinfo)
+
+
+
+    console.log("worked added")
+
+
+    res.json(postinfo)
+
+})
 
 
 

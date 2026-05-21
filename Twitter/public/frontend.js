@@ -12,16 +12,17 @@ const con = document.querySelector(".postsArea")
 
 
 const currentUser = JSON.parse(
-    
+
     localStorage.getItem("user")
-    
+
 )
 console.log(currentUser.PPF)
 
+console.log(currentUser)
 
 const ppf = document.querySelectorAll("#PPFs");
 for (let i = 0; i < ppf.length; i++) {
-  ppf[i].src = currentUser.PPF;
+    ppf[i].src = currentUser.PPF;
 }
 
 
@@ -65,11 +66,16 @@ imageInputimg.addEventListener("change", () => {
 
 
 
+let postnum = 0
 
 // CREATE POST FUNCTION
 function createPost(postData) {
 
     const post = document.createElement("div")
+    postnum = postnum + 1
+    console.log(postnum)
+
+
 
 
     post.className = `
@@ -82,7 +88,7 @@ function createPost(postData) {
 
     post.innerHTML = `
 
-<div class="flex gap-3 hover:bg-[#0f0f0f] transition duration-200 px-4 py-3">
+<div post-id="" class=" flex gap-3 hover:bg-[#0f0f0f] transition duration-200 px-4 py-3">
 
         <!-- PROFILE -->
         <img src="${currentUser.PPF}"
@@ -137,7 +143,7 @@ function createPost(postData) {
     
     <div class="flex justify-between mt-4 max-w-[420px] text-[#71767b] text-sm">
 
-                <div class="hover:text-[#1d9bf0] cursor-pointer transition">
+                <div class=" hover:text-[#1d9bf0] cursor-pointer transition flex" id="${postData._id}">
                     <svg viewBox="0 0 24 24" aria-hidden="true"
                         class="r-4qtqp9 fill-white w-5 r-yyyyoo r-dnmrzs r-bnwqim r-lrvibr r-m6rgpd r-1xvli5t r-1hdv0qi">
                         <g>
@@ -148,7 +154,7 @@ function createPost(postData) {
                     </svg>
                 </div>
 
-                <div class="hover:text-[#00ba7c] cursor-pointer transition">
+                <div class=" hover:text-[#00ba7c] cursor-pointer transition flex" id= ${postData._id}">
                     <svg viewBox="0 0 24 24" aria-hidden="true"
                         class="r-4qtqp9 fill-white w-5 r-yyyyoo r-dnmrzs r-bnwqim r-lrvibr r-m6rgpd r-1xvli5t r-1hdv0qi">
                         <g>
@@ -159,8 +165,8 @@ function createPost(postData) {
                     </svg>
                 </div>
 
-                <div class="hover:text-[#f91880] cursor-pointer transition" id="like">
-                    <svg viewBox="0 0 24 24" aria-hidden="true" class=" fill-white w-5
+                <div class="likebtn cursor-pointer transition flex ${postData.likelist.includes(currentUser._id)?"fill-[#f91880]":"fill-[#ffffff]" } "   data-id="${postData._id}">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" class="  w-5
                     r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-lrvibr r-m6rgpd r-1xvli5t r-1hdv0qi">
                         <g>
                             <path
@@ -168,9 +174,10 @@ function createPost(postData) {
                             </path>
                         </g>
                     </svg>
+                    ${postData.like}
                 </div>
 
-                <div class="hover:text-[#1d9bf0] cursor-pointer transition">
+                <div class="hover:text-[#1d9bf0] cursor-pointer transition flex" ${postData._id}">
                     <svg viewBox="0 0 24 24" aria-hidden="true"
                         class=" fill-white w-5 r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-lrvibr r-m6rgpd r-1xvli5t r-1hdv0qi">
                         <g>
@@ -180,7 +187,7 @@ function createPost(postData) {
                     </svg>
                 </div>
 
-                <div class="hover:text-[#1d9bf0] cursor-pointer flex transition">
+                <div class="hover:text-[#1d9bf0] cursor-pointer flex transition " ${postData._id}">
 
                     <svg viewBox="0 0 24 24" aria-hidden="true"
                         class=" fill-white w-5 r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-lrvibr r-m6rgpd r-1xvli5t r-1hdv0qi">
@@ -219,6 +226,220 @@ function createPost(postData) {
 
 
 
+const box2 = document.querySelector(".box2")
+
+async function loadProfile(userid){
+
+    
+
+    box2.innerHTML = `
+
+    <div>
+<div class="w-full min-h-screen bg-black text-white">
+
+    <!-- TOP BAR -->
+    <div class="sticky top-0 z-10 bg-black/80 backdrop-blur border-b border-[#2f3336]">
+
+        <div class="flex items-center gap-8 px-4 py-3">
+
+            <svg viewBox="0 0 24 24" aria-hidden="true"
+                class="w-5 fill-white cursor-pointer">
+                <g>
+                    <path
+                        d="M7.293 4.293L1.586 10l5.707 5.707 1.414-1.414L5.414 11H22V9H5.414l3.293-3.293z">
+                    </path>
+                </g>
+            </svg>
+
+            <div>
+
+                <h1 class="text-[20px] font-bold">
+                    ${currentUser.username}
+                </h1>
+
+                <p class="text-[#71767b] text-[13px]">
+                    12 posts
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- COVER PHOTO -->
+    <div class="w-full h-[220px] bg-[#333639]">
+
+        <img
+            src="https://images.unsplash.com/photo-1506744038136-46273834b3fb"
+            class="w-full h-full object-cover"
+        >
+
+    </div>
+
+
+
+    <!-- PROFILE INFO -->
+    <div class="px-4">
+
+        <!-- DP + BUTTON -->
+        <div class="flex justify-between items-start">
+
+            <img
+                src="${currentUser.PPF}"
+                class="w-34 h-34 rounded-full border-4 border-black -mt-16 object-cover"
+            >
+
+            <button
+                class="border border-[#536471] px-5 py-2 rounded-full font-bold mt-3 hover:bg-[#181818] transition">
+
+                Edit profile
+
+            </button>
+
+        </div>
+
+
+
+        <!-- USER DETAILS -->
+        <div class="mt-3">
+
+            <h1 class="text-[30px] font-bold leading-none">
+                ${currentUser.username}
+            </h1>
+
+            <p class="text-[#71767b] text-[17px] mt-1">
+                @${currentUser.username}
+            </p>
+
+        </div>
+
+
+
+        <!-- BIO -->
+        <p class="mt-4 text-[16px] leading-6">
+            ${currentUser.BIO}
+
+        </p>
+
+
+
+        <!-- EXTRA INFO -->
+        <div class="flex gap-5 mt-4 text-[#71767b] text-[15px]">
+
+            <div class="flex items-center gap-2">
+
+                <svg viewBox="0 0 24 24" aria-hidden="true"
+                    class="w-5 fill-[#71767b]">
+                    <g>
+                        <path
+                            d="M7 4V2H5v2H2v18h20V4H7zm13 16H4V9h16v11z">
+                        </path>
+                    </g>
+                </svg>
+
+                Joined May 2026
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FOLLOWERS -->
+        <div class="flex gap-5 mt-4 text-[15px]">
+
+            <div>
+
+                <span class="font-bold">
+                    120
+                </span>
+
+                <span class="text-[#71767b]">
+                    Following
+                </span>
+
+            </div>
+
+            <div>
+
+                <span class="font-bold">
+                    12
+                </span>
+
+                <span class="text-[#71767b]">
+                    Followers
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- TABS -->
+    <div class="flex justify-around mt-6 border-b border-[#2f3336] text-[#71767b] text-[15px] font-medium">
+
+        <div class="py-4 border-b-4 border-[#1d9bf0] text-white cursor-pointer">
+
+            Posts
+
+        </div>
+
+        <div class="py-4 hover:bg-[#111] w-full text-center cursor-pointer">
+
+            Replies
+
+        </div>
+
+        <div class="py-4 hover:bg-[#111] w-full text-center cursor-pointer">
+
+            Media
+
+        </div>
+
+        <div class="py-4 hover:bg-[#111] w-full text-center cursor-pointer">
+
+            Likes
+
+        </div>
+
+    </div>
+
+
+
+    <!-- POSTS AREA -->
+    <div class="postsArea">
+
+        <!-- POSTS YAHAN AAYENGE -->
+
+    </div>
+
+</div>
+    `
+
+}
+
+
+
+const profilebtn = document.querySelector(".profileBtn")
+profilebtn.addEventListener("click",()=>{
+    console.log(profilebtn)
+
+    // fetch(`/profile/${currentUser._id}`)
+    //     .then((res)=>res.json())
+
+    //     .then((data)=>{
+
+    //         console.log(data)})
+
+         loadProfile(currentUser._id)
+})
+
 async function loadPosts() {
 
     const response = await fetch("/posts")
@@ -230,20 +451,122 @@ async function loadPosts() {
         createPost(post)
 
     })
-    const isliked = false
-    const likes = document.getElementById("like")
-    likes.addEventListener("click",()=>{
 
-
-
-
-
-})
 
 
 }
 
+document.addEventListener("click", (e) => {
 
+    const postEl = e.target.closest('.likebtn')
+
+
+
+    if (postEl) {
+
+
+        fetch("/findpost", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    postId: postEl.dataset.id,
+                    userid: currentUser._id
+
+                })
+
+            })
+
+            .then((res) => res.json())
+
+            .then((data) => {
+
+                if (data.likelist.includes(currentUser._id)) {
+                    console.log("fhhaa")
+
+                    fetch("/removelike", {
+
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                postId: postEl.dataset.id,
+                                userid: currentUser._id
+
+                            })
+
+                        }).then((res) => res.json())
+
+                        .then((data) => {
+
+                            console.log("removed")
+                            const svg = postEl.querySelector("svg")
+                            data.likelist.includes(currentUser._id)?
+
+                            svg.classList.add("fill-[#f91880]")
+                            :svg.classList.add("fill-[#ffffff]")
+
+
+                        })
+
+                        
+                        
+                    }
+                    else{
+                         console.log("huuuhahhaha")
+
+                    fetch("/addlike", {
+
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                postId: postEl.dataset.id,
+                                userid: currentUser._id
+
+                            })
+
+                        }).then((res) => res.json())
+
+                        .then((data) => {
+
+                            console.log("removed")
+                             const svg = postEl.querySelector("svg")
+                            data.likelist.includes(currentUser._id)?
+
+                            svg.classList.add("fill-[#f91880]")
+                            :svg.classList.add("fill-[#ffffff]")
+
+
+                        })
+
+
+                    }
+
+            })
+
+
+
+    } else {
+        const svg = postEl.querySelector("svg")
+
+
+    }
+
+})
 submitBtn.addEventListener("click", (e) => {
 
     e.preventDefault()
@@ -254,6 +577,7 @@ submitBtn.addEventListener("click", (e) => {
 
     formData.append("image", file)
     formData.append("caption", caption)
+    formData.append("userid", currentUser._id)
 
 
 
@@ -273,9 +597,6 @@ submitBtn.addEventListener("click", (e) => {
 
         .then((data) => {
             loadPosts()
-
-
-
             // CLEAR INPUTS
             textarea.value = ""
 
@@ -287,13 +608,6 @@ submitBtn.addEventListener("click", (e) => {
         })
 
 
-
-
-
-
-
 })
 
 loadPosts()
-
-
