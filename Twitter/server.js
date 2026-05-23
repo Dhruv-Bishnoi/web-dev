@@ -6,6 +6,8 @@ import { fileURLToPath } from "url"
 import { count } from "console"
 import { get } from "http"
 import strict from "assert/strict"
+import { type } from "os"
+import { ref } from "process"
 
 
 mongoose.connect("mongodb://localhost:27017/twitter")
@@ -17,23 +19,59 @@ mongoose.connect("mongodb://localhost:27017/twitter")
 
 })
 
-
-
 const postSchema = new mongoose.Schema({
 
     caption: String,
 
     image: String,
 
+
+
     likelist:[String],
 
-    userid:String,
-    reshare:Number,
+
+
+    userid:{
+        
+
+        type:mongoose.Schema.ObjectId,
+
+        ref:"user",
+    },
+
+
+
+
+
+    reshare:{
+
+        type:Number,
+
+        default:0
+
+    },
+
+
+
     like:{
-   type:Number,
-   default:0
-},
-    comment:Number,   
+
+        type:Number,
+
+        default:0
+
+    },
+
+
+
+    comment:{
+
+        type:Number,
+
+        default:0
+
+    },
+
+
 
     createdAt: {
 
@@ -44,8 +82,6 @@ const postSchema = new mongoose.Schema({
     }
 
 })
-
-
 const userdata = new mongoose.Schema({
 
     username:String,
@@ -153,9 +189,30 @@ app.post("/signup",
     
 })
 
+app.get("/profile/:id", async(req,res)=>{
+    const finduser = await Post.find({userid:req.params.id})
+
+    res.json(finduser)
+    console.log("done")
+})
+
 app.get("/login",(req,res)=>{
 
     res.sendFile(path.join(__dirname,"public","login.html"))
+
+})
+
+
+
+app.post("/finduser", async(req,res)=>{
+
+    const curruser = await user.findById(req.body.userid)
+
+    console.log("user found")
+    
+    res.json(curruser)
+
+
 
 })
 
@@ -196,11 +253,16 @@ app.post("/login", async (req,res)=>{
 
 
 })
+
+
 app.get("/posts" ,async (req,res)=>{
-    const Posts = await Post.find() 
+    const Posts = await Post.find() .populate("userid")
+    console.log(Posts)
 
     res.json(Posts)
 })
+
+
 // CREATE POST
 app.post("/create-post",
 

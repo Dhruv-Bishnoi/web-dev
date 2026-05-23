@@ -10,6 +10,19 @@ const postsContainer = document.getElementById("postsContainer")
 
 let uploadedImageUrl = ""
 
+const postsection = document.getElementById("postsection")
+
+
+postsection.addEventListener("click",()=>{
+
+    alert()
+
+
+})
+
+
+
+
 
 // OPEN FILE PICKER
 uploadBtn.addEventListener("click", () => {
