@@ -190,7 +190,13 @@ app.post("/signup",
 })
 
 app.get("/profile/:id", async(req,res)=>{
-    const finduser = await Post.find({userid:req.params.id})
+    const finduser = await Post.find({userid:req.params.id}).populate("userid")
+
+    res.json(finduser)
+    console.log("done")
+})
+app.get("/user/:id", async(req,res)=>{
+    const finduser = await Post.find({_id:req.params.id}).populate("userid")
 
     res.json(finduser)
     console.log("done")
@@ -206,7 +212,7 @@ app.get("/login",(req,res)=>{
 
 app.post("/finduser", async(req,res)=>{
 
-    const curruser = await user.findById(req.body.userid)
+    const curruser = await user.findById(req.body.userid).populate("userid")
 
     console.log("user found")
     
@@ -257,7 +263,7 @@ app.post("/login", async (req,res)=>{
 
 app.get("/posts" ,async (req,res)=>{
     const Posts = await Post.find() .populate("userid")
-    console.log(Posts)
+    // console.log(Posts)
 
     res.json(Posts)
 })
@@ -270,7 +276,7 @@ upload.single("image"),
 
 async(req,res)=>{
     
-    console.log(req.file)
+    // console.log(req.file)
     
 
     const newPost = await Post.create({
@@ -295,7 +301,7 @@ app.post("/findpost", async(req,res)=>{
     const postinfo = await Post.findById(req.body.postId)
     
     
-    console.log(postinfo)
+    // console.log(postinfo)
 
 
 
@@ -312,7 +318,7 @@ app.post("/removelike", async(req,res)=>{
        postinfo.like -=1
     await postinfo.save()
     
-    console.log(postinfo)
+    // console.log(postinfo)
 
 
 
@@ -329,7 +335,7 @@ app.post("/addlike", async(req,res)=>{
        postinfo.like +=1
     await postinfo.save()
     
-    console.log(postinfo)
+    // console.log(postinfo)
 
 
 
