@@ -1,38 +1,85 @@
 import { useRef, useState } from 'react'
 
 import './App.css'
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0)
 
-  const a = useRef(0)
+  // const a = useRef(0)
+const [todos, settodos] = useState([
+  {
+    title : "hey",
+    disc : "hello first todo"
 
-  useEffect(()=>
-    {
+  },
+  {
+    title : "hello",
+    disc : "hello sec todo"
 
-      alert(`lert on every reload ${a.current}`)
-      a.current = a.current +1
+  },
+  {
+    title : "hey",
+    disc : "hello third todo"
 
+  },
+  {
+    title : "hey",
+    disc : "hello fourth todo"
 
-    },[])
-
-  useEffect(()=>
-    {
-
-      alert(`alert on every render  ${a.current}`)
-      a.current = a.current +1
-
-    })
-
-  useEffect(()=>
-    {
-
-      alert(`alert on every change on count ${a.current}`)
-            a.current = a.current +1
+  }
+])
 
 
-    },[count])
+const Todo = ({todo}) =>{
+
+  return(<>
+  
+  <div>
+
+    <p>
+      {todo.title}
+      {todo.disc}
+    </p>
+
+  </div>
+  
+  </>)
+
+}
+
+
+todos.map(todo=>{
+  return <Todo todo={todo} />
+})
+
+  // useEffect(()=>
+  //   {
+
+  //     alert(`lert on every reload ${a.current}`)
+  //     a.current = a.current +1
+
+
+  //   },[])
+
+  // useEffect(()=>
+  //   {
+
+  //     alert(`alert on every render  ${a.current}`)
+  //     a.current = a.current +1
+
+  //   })
+
+  // useEffect(()=>
+  //   {
+
+  //     alert(`alert on every change on count ${a.current}`)
+  //           a.current = a.current +1
+
+
+  //   },[count])
+
+
 
   return (
     <>

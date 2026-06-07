@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.3.0",
+    "@tailwindcss/vite": "^4.3.0",
     "bootstrap": "^5.3.8",
     "ejs": "^5.0.2",
     "express": "^5.2.1",
