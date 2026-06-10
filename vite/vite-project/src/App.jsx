@@ -20,6 +20,23 @@ function App() {
       disc:"hey how are you third"
     },
   ])
+function App() {
+  const [count, setCount] = useState(0)
+
+  const [todos, settodos] = useState([
+    {
+      title:"hey",
+      disc:"hey how are you first"
+    },
+    {
+      title:"hello",
+      disc:"hey how are you sec"
+    },
+    {
+      title:"huhuhuh",
+      disc:"hey how are you third"
+    },
+  ])
 
 
 
