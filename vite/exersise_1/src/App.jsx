@@ -19,12 +19,28 @@ function App() {
   }, [])
 
 
+  const [form, setform] = useState({email:"" , phone:""})
 
+  const handleinput = (e)=>{
+
+    setform({...form,[e.target.name]:e.target.value})
+    
+  }
+  
   return (
 
+     
       
     
     <>
+
+    <div className="top">
+      <input type="text" onChange={handleinput} name='email' value={form.email} />
+      <input type="text" onChange={handleinput} name='phone' value={form.phone} />
+    </div>
+{    console.log(form)
+}
+
       <h1>Todo</h1>
       {todo.map(post=>(
           
