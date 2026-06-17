@@ -15,6 +15,32 @@ function App() {
     : []
 
 })
+
+
+
+    
+    setTodo("")
+   
+  }
+
+  const tickhandle = (id) => {
+
+    setREALtodo(
+
+      REALtodo.map((item) =>
+
+        item.id === id
+          ? { ...item, Tick: !item.Tick }
+          : item
+
+      )
+
+    )
+       
+
+
+  }
+  
 useEffect(() => {
 
   localStorage.setItem(
@@ -42,31 +68,6 @@ useEffect(() => {
       }
     ])
 
-
-
-
-    
-    setTodo("")
-   
-  }
-
-  const tickhandle = (id) => {
-
-    setREALtodo(
-
-      REALtodo.map((item) =>
-
-        item.id === id
-          ? { ...item, Tick: !item.Tick }
-          : item
-
-      )
-
-    )
-       
-
-
-  }
 
   const deletetodo = (id) => {
 
