@@ -7,7 +7,7 @@ function App() {
 
 
 
- 
+
   const [Finished, setFinished] = useState(false)
 
 
@@ -33,6 +33,7 @@ function App() {
         id: Date.now(),
         todo: Todo,
         Tick: false,
+        edit: false,
       },
     ]);
 
@@ -57,128 +58,196 @@ function App() {
 
   const deletetodo = (id) => {
     setREALtodo(
-      REALtodo.map((item) => item.id !== id)
+      REALtodo.filter((item) => item.id !== id)
     );
-   
+
 
   };
 
-  // const Edit =(id)=>{
-  //     setREALtodo(
-  //     REALtodo.map((item) => item.id !== id)
+  const [EditedTodo, setEditedTodo] = useState("")
 
-  //   );
-   
+  const handleedit = (e) => {
+
+    setEditedTodo(e.target.value)
+
+  }
+  const Edittodo = (id) => {
+    const currentTodo = REALtodo.find(item => item.id === id);
+
+    if (!currentTodo.edit) {
+      setEditedTodo(currentTodo.todo);
+
+      setREALtodo(
+        REALtodo.map(item =>
+          item.id === id
+            ? { ...item, edit: true }
+            : item
+        )
+      );
+    }
+      else {
+    setREALtodo(
+      REALtodo.map(item =>
+        item.id === id
+          ? {
+              ...item,
+              todo: EditedTodo,
+              edit: false
+            }
+          : item
+      )
+    );
+  }
+};
 
 
-}
+return (
+  <div className="min-h-screen w-full bg-gradient-to-br from-purple-100 to-purple-300 flex justify-center items-center p-4">
+    <div className="bg-white rounded-2xl shadow-2xl w-full sm:w-[90%] md:w-[75%] lg:w-[60%] xl:w-[45%] h-[90vh] overflow-y-auto">
 
+      {/* Heading */}
+      <div className="sticky top-0 bg-white rounded-t-2xl border-b p-5 text-center">
+        <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-purple-700">
+          📝 DoIT - Manage your Todo
+        </h1>
+      </div>
 
-  return (
-    <div className="bg-purple-100 h-screen flex justify-center items-center w-screen">
-      <div className="bg-purple-200 rounded-xl shadow-sm w-[40%] h-[80%] overflow-y-auto">
-        <div className="flex justify-center items-center py-4">
-          <h1 className="text-xl font-bold">
-            DoIt - Manage your Todo at one place
-          </h1>
+      <div className="p-5">
+
+        {/* Add Todo */}
+        <h2 className="font-semibold text-lg mb-3">
+          Add Todo
+        </h2>
+
+        <div className="flex flex-col sm:flex-row gap-3">
+
+          <input
+            type="text"
+            value={Todo}
+            onChange={HandelTodo}
+            placeholder="Enter Todo"
+            className="flex-1 border-2 border-purple-300 rounded-xl p-3 outline-none focus:border-purple-600"
+          />
+
+          <button
+            onClick={Handlesbt}
+            className="bg-purple-600 hover:bg-purple-700 text-white rounded-xl px-6 py-3 transition"
+          >
+            Save
+          </button>
+
         </div>
 
-        <div className="m-5">
-          <h2 className="font-semibold">Add Todo</h2>
+        {/* Show Finished */}
+        <div className="flex items-center gap-3 mt-6">
 
-          <div className="flex gap-3 items-center">
-            <input
-              type="text"
-              value={Todo}
-              onChange={HandelTodo}
-              placeholder="Enter Todo"
-              className="bg-white rounded-2xl my-5 p-2 w-[90%]"
-            />
+          <svg
+            onClick={() => setFinished(!Finished)}
+            fill="#fff"
+            className={`${
+              Finished ? "bg-green-500" : "bg-gray-400"
+            } rounded w-6 cursor-pointer`}
+            viewBox="0 0 1024 1024"
+          >
+            <path d="M760 380.4l-61.6-61.6-263.2 263.1-109.6-109.5L264 534l171.2 171.2L760 380.4z"></path>
+          </svg>
 
-            <button
-              onClick={Handlesbt}
-              className="rounded-2xl bg-purple-400 px-4 py-2"
-            >
-              Save
-            </button>
-          </div>
+          <span className="font-medium">
+            Show Finished
+          </span>
 
-          <div className="flex items-center gap-2" >
-            <svg onClick={()=>setFinished(!Finished)}
-              fill="#ffffff"
-                    className={`${
-                      Finished ? "  bg-white" : "bg-blue-400"
-                    } rounded-sm w-5 cursor-pointer`}              viewBox="0 0 1024 1024"
-              
-            >
-              <path d="M760 380.4l-61.6-61.6-263.2 263.1-109.6-109.5L264 534l171.2 171.2L760 380.4z"></path>
-            </svg>
+        </div>
 
-            <span > Show Finished</span>
-          </div>
+        <hr className="my-6" />
 
-          <div className="items-center flex py-4 justify-center">
-            <div className="w-[90%] bg-gray-400 h-[2px]"></div>
-          </div>
+        <h3 className="font-semibold text-lg mb-5">
+          Your Todos
+        </h3>
 
-          <h3 className="font-semibold mb-4">
-            Your Todos
-          </h3>
-
-          {REALtodo.length === 0 ? (
-            <p className="text-gray-500">
-              No Todos Available
-            </p>
-          ) : (
-
-            REALtodo.filter((item)=> Finished? item.Tick : !item.Tick).
-            map((item) => (
+        {REALtodo.length === 0 ? (
+          <p className="text-gray-500 text-center">
+            No Todos Available
+          </p>
+        ) : (
+          REALtodo
+            .filter((item) =>
+              Finished ? item.Tick : !item.Tick
+            )
+            .map((item) => (
               <div
                 key={item.id}
-                className="flex justify-between items-center py-2"
+                className="bg-purple-50 rounded-xl shadow p-4 mb-4"
               >
-                <div className="flex gap-4 items-center">
-                  <svg
-                    fill="#ffffff"
-                    onClick={() => tickhandle(item.id)}
-                    className={`${
-                      item.Tick ? "bg-white" : " bg-blue-400"
-                    } rounded-sm w-5 cursor-pointer`}
-                    viewBox="0 0 1024 1024"
-                  >
-                    <path d="M760 380.4l-61.6-61.6-263.2 263.1-109.6-109.5L264 534l171.2 171.2L760 380.4z"></path>
-                  </svg>
 
-                  <p
-                    className={
-                      item.Tick
-                        ? "line-through text-gray-500"
-                        : ""
-                    }
-                  >
-                    {item.todo}
-                  </p>
+                <div className="flex justify-between items-start gap-3">
+
+                  <div className="flex gap-3 flex-1">
+
+                    <svg
+                      fill="#fff"
+                      onClick={() => tickhandle(item.id)}
+                      className={`${
+                        item.Tick
+                          ? "bg-green-500"
+                          : "bg-blue-500"
+                      } rounded w-6 h-6 cursor-pointer flex-shrink-0`}
+                      viewBox="0 0 1024 1024"
+                    >
+                      <path d="M760 380.4l-61.6-61.6-263.2 263.1-109.6-109.5L264 534l171.2 171.2L760 380.4z"></path>
+                    </svg>
+
+                    <div className="flex-1">
+
+                      {item.edit ? (
+                        <input
+                          value={EditedTodo}
+                          onChange={handleedit}
+                          className="w-full border rounded-lg p-2"
+                        />
+                      ) : (
+                        <p
+                          className={`break-words ${
+                            item.Tick
+                              ? "line-through text-gray-500"
+                              : ""
+                          }`}
+                        >
+                          {item.todo}
+                        </p>
+                      )}
+
+                    </div>
+
+                  </div>
+
                 </div>
 
-                <div className="flex gap-3">
-                  <button className="text-blue-600">
-                    Edit
+                {/* Buttons */}
+                <div className="flex flex-col sm:flex-row gap-2 mt-4">
+
+                  <button
+                    onClick={() => Edittodo(item.id)}
+                    className="flex-1 bg-blue-500 hover:bg-blue-600 text-white rounded-lg py-2 transition"
+                  >
+                    {item.edit ? "Save" : "Edit"}
                   </button>
 
                   <button
                     onClick={() => deletetodo(item.id)}
-                    className="text-red-600"
+                    className="flex-1 bg-red-500 hover:bg-red-600 text-white rounded-lg py-2 transition"
                   >
                     Delete
                   </button>
+
                 </div>
+
               </div>
             ))
-          )}
-        </div>
+        )}
       </div>
     </div>
-  );
-}
+  </div>
+);
+  }
 
-export default App;
+  export default App;
