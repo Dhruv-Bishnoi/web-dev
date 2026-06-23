@@ -1,0 +1,10 @@
+.red{
+  background-color: red;
+  color: black;
+  display: flex;
+}
+
+.nev{color: aliceblue;
+background-color: blueviolet;
+width: 400px;
+height: 40px;}
