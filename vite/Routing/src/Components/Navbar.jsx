@@ -1,16 +1,14 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+
 
 const Navbar = () => {
   return (
-    <div>
-
-        <Link  className='red'  to={"/About"}>  ab</Link>
-        <Link  className='red' to={"/Contact"}>co  </Link>
-        <Link className='red'  to={"/Login"}>  lo
-        
-        </Link>
-=    </div>
+    <div className='bg-purple-500 flex gap-4 h-9 ' >
+      <NavLink className= { ({isActive})=>`${isActive?"bg-red-500":""}  text-white hover:text-gray-200 `} to='/about'>About</NavLink>
+      <NavLink className= { ({isActive})=>`${isActive?"bg-red-500":""}  text-white hover:text-gray-200 `} to='/contact'>Contact</NavLink>
+      <NavLink className= { ({isActive})=>`${isActive?"bg-red-500":""}  text-white hover:text-gray-200 `}    to='/login'>Login</NavLink>
+    </div>
   )
 }
 

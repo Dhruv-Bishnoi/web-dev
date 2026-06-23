@@ -1,9 +1,9 @@
 import "./App.css";
 
-import Navbar from "./components/Navbar";
-import About from "./components/About";
-import Contact from "./components/Contact";
-import Login from "./components/Login";
+import Navbar from "./Components/Navbar";
+import About from "./Components/About";
+import Contact from "./Components/Contact";
+import Login from "./Components/Login";
 import User from "./Components/User";
 import {
   createBrowserRouter,
@@ -41,7 +41,7 @@ function App() {
       ),
     },
     {
-      path: "/Login",
+      path: "/login",
       element: (
         <>
           <Navbar />
@@ -54,7 +54,7 @@ function App() {
       element: (
         <>
           <Navbar />
-          <User/>
+          <User />
         </>
       ),
     },
@@ -62,8 +62,6 @@ function App() {
 
   ]);
 
-
-  <Login/>
   return <RouterProvider router={router} />;
 }
 
