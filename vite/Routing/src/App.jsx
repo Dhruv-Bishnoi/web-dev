@@ -16,6 +16,7 @@ function App() {
       path: "/",
       element: (
         <>
+        
           <Navbar />
           <Login />
 
