@@ -1,61 +1,64 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from "react";
 
-
-
- export function App() {
-const [answer, setanswer] = useState()
-const [question, setquestion] = useState("")
+export default function App() {
+  const [question, setQuestion] = useState("");
+  const [chat, setChat] = useState([]);
 
 
   async function askAI() {
-const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-  method: "POST",
-  headers: {
-    Authorization: `Bearer ${import.meta.env.VITE_GROQ_API_KEY}`,
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    model: "llama-3.3-70b-versatile",
-    messages: [
-      {
-        role: "user",
-        content: question,
+    if (!question.trim()) return;
+
+    const response = await fetch("http://localhost:3000/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    ],
-  }),
-});
+      body: JSON.stringify({
+        question,
+      }),
+    });
 
-const data = await response.json();
+    const data = await response.json();
+    
 
-setanswer(data.choices[0].message.content)
+    setChat((prev) => [
+      ...prev,
+      {
+        question,
+        answer: data.answer,
+      },
+    ]);
+
+    setQuestion("");
+    
   }
+
   return (
-    <div className="flex min-h-screen">
-     <div className="w-[20vw] bg-amber-700"></div>
-<div className="w-[80vw] bg-amber-200">
+   <div className="min-h-screen flex flex-col">
+  <div className="flex-1 overflow-y-auto p-6 bg-red-600">
+    {chat.map((item, index) => (
+      <div key={index} className="mb-6">
+        <h3><b>You:</b> {item.question}</h3>
+        <h3><b>AI:</b> {item.answer}</h3>
+      </div>
+    ))}
+  </div>
 
-<input
-  type="text"
-  value={question}
-  onChange={(e) => setquestion(e.target.value)}
-  className="border p-2 rounded w-96"
-  placeholder="Ask anything..."
-/>
+  <div className="border-t p-4 flex gap-2">
+    <input
+      value={question}
+      onChange={(e) => setQuestion(e.target.value)}
+      className="flex-1 border p-2 rounded"
+      placeholder="Ask anything..."
+    />
 
-<button className=' bg-body' onClick={askAI}>Send</button>
-
-<p className=' bg-body'>{answer}</p>
-
+    <button
+      onClick={askAI}
+      className="bg-blue-600 text-white px-4 py-2 rounded"
+    >
+      Send
+    </button>
+  </div>
 </div>
-    </div>
   );
-
-
-  
 }
-
-export default App
