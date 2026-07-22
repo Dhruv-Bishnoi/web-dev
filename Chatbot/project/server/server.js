@@ -3,12 +3,12 @@ import cors from "cors";
 import dotenv from "dotenv";
 import Chat from "./models/Chat.js";
 import mongoose from "mongoose";
+import { randomUUID } from "crypto";
 dotenv.config();
 
-
-
-
 const app = express();
+
+
 
 
 console.log("THIS IS MY SERVER");
@@ -27,7 +27,13 @@ app.get("/", (req, res) => {
   res.send("Server is Running 🚀");
 });
 
+app.post("/newChat", async (req,res)=>{
+ const chatId = randomUUID();
 
+  res.json({
+    chatId,
+  });
+});
 
 app.post("/chat", async (req, res) => {
 
@@ -55,7 +61,7 @@ app.post("/chat", async (req, res) => {
         ],
       }),
     }
-    
+
 
   
   );

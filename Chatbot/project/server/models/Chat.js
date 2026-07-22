@@ -10,10 +10,15 @@ const ChatSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+
+    
+    chatid: String
+    
   },
   {
     timestamps: true,
   }
+
 );
 
 export default mongoose.model("Chat", ChatSchema);
