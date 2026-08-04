@@ -23,6 +23,7 @@ mongoose
 
 
 
+
 app.get("/", (req, res) => {
   res.send("Server is Running 🚀");
 });
@@ -38,11 +39,64 @@ app.post("/newChat", async (req,res)=>{
 app.post("/chat", async (req, res) => {
 
 
-  const { question } = req.body;
- 
 
+
+  
+  
+  const { question,chatid } = req.body;
+ 
+  const history = await Chat.find({chatid})
+  
+  let messages = []
+  
+  history.forEach((msg)=>{
+  
+     messages.push({
+          role: "user",
+          content: msg.question
+      });
+  
+      messages.push({
+          role: "assistant",
+          content: msg.answer
+      });
+  
+  });
+  
+  messages.push({
+      role: "user",
+      content: question
+  })
   const response = await fetch(
     "https://api.groq.com/openai/v1/chat/completions",
+
+
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile",
+
+        messages
+      }),
+    }
+
+
+  
+  );
+
+  const msgTitle =  "make a short summary of these conversation in 6 words"
+
+
+  if(history.length <= 3){
+    const title = await fetch(
+    "https://api.groq.com/openai/v1/chat/completions",
+
+
     {
       method: "POST",
       headers: {
@@ -54,17 +108,24 @@ app.post("/chat", async (req, res) => {
         model: "llama-3.3-70b-versatile",
 
         messages: [
-          {
-            role: "user",
-            content: question,
-          },
-        ],
+        {
+          role: "system",
+          content:
+            "Generate a short chat title in maximum 6 words. Return only the title."
+        },
+        ...messages
+      ]
       }),
-    }
-
-
-  
+    } 
   );
+  
+  const restitle = await title.json();
+  const titleofchat = restitle.choices[0].message.content
+
+  console.log(titleofchat)
+
+
+  }
 
   console.log("working")
   const data = await response.json();
@@ -73,9 +134,15 @@ app.post("/chat", async (req, res) => {
   await Chat.create({
     question,
     answer,
+    chatid,
+
+
+    
   })
   res.json({
     answer:answer,
+    question,
+    chatid
     
   });
 
@@ -86,3 +153,4 @@ app.post("/chat", async (req, res) => {
 app.listen(3000, () => {
   console.log("Server Running");
 });
+
