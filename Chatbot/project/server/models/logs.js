@@ -1,11 +1,14 @@
-import mongoose from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 
 
-const post = mongoose.Schema(
+const logschema = mongoose.Schema(
     
     {
 
-    chatID:String
+    chatID:String,
+    Title:String
+
 }
 )
 
+export default  mongoose.model("Logs",logschema)
