@@ -61,6 +61,7 @@ async function  getTitle () {
 
     {
       method: "POST",
+      
       headers: {
         Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
         "Content-Type": "application/json",
