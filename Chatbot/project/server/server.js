@@ -33,9 +33,12 @@ app.get("/", (req, res) => {
 app.post("/newChat", async (req,res)=>{
  const chatId = randomUUID();
 
+ const TITLE = await getTitle()
+ console.log(TITLE)
 
   res.json({
     chatId,
+    TITLE
   });
 });
 
@@ -91,11 +94,6 @@ async function  getTitle () {
 }
 
 app.post("/chat", async (req, res) => {
-
-
-
-
-  
   
   const { question,chatid } = req.body;
  
@@ -162,22 +160,12 @@ app.post("/chat", async (req, res) => {
     })
     console.log("done dona done")
     
-    
-
-   
   }
 
   await Chat.create({
     question,
     answer,
-    chatid,
-    
-    
-    
-    
-
-
-    
+    chatid,    
   })
   res.json({
     answer:answer,
