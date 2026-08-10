@@ -12,6 +12,8 @@ const app = express();
 
 
 
+let TITLE = ""
+
 
 console.log("THIS IS MY SERVER");
 
@@ -33,147 +35,179 @@ app.get("/", (req, res) => {
 app.post("/newChat", async (req,res)=>{
  const chatId = randomUUID();
 
- const TITLE = await getTitle()
- console.log(TITLE)
+
 
   res.json({
     chatId,
-    TITLE
   });
 });
 
 
-app.post("/logs",async (req,res)=>{
+app.post("/LoadChat", async (req, res) => {
+  try {
+    const { id } = req.body;
 
-  const allLogs = await logs.map
+    const chats = await Chat.find({
+      chatid: id
+    });
+
+    res.json(chats);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      error: "Unable to load chat"
+    });
+  }
+});
+
+app.post("/chatLogs",async (req,res)=>{
+
+  const allLogs = await logs.find()
 
 
+res.json({
+  allLogs
+})
 
 
 })
 
-async function  getTitle () {
-  
-  const msgTitle =  "make a short summary of these conversation strictly in 6 words"
-  let messages = []
+async function getTitle(question, answer) {
+  try {
+    const response = await fetch(
+      "https://api.groq.com/openai/v1/chat/completions",
+      {
+        method: "POST",
 
-
-    const title = await fetch(
-    "https://api.groq.com/openai/v1/chat/completions",
-
-
-    {
-      method: "POST",
-      
-      headers: {
-        Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-
-      body: JSON.stringify({
-        model: "llama-3.3-70b-versatile",
-
-        messages: [
-        {
-          role: "system",
-          content:
-            "Generate a short chat title in maximum 6 words. Return only the title."
+        headers: {
+          Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
+          "Content-Type": "application/json",
         },
-        ...messages
-      ]
-      }),
-    } 
-  );
-  
-  const restitle = await title.json();
-  const titleofchat = restitle.choices[0].message.content
-  console.log(titleofchat)
 
+        body: JSON.stringify({
+          model: "llama-3.3-70b-versatile",
 
-  return titleofchat
+          messages: [
+            {
+              role: "system",
+              content:
+                "Generate a short chat title in maximum 6 words. Return only the title.",
+            },
+            {
+              role: "user",
+              content: `Question: ${question}\nAnswer: ${answer}`,
+            },
+          ],
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    console.log("TITLE API RESPONSE:", data);
+
+    if (!response.ok) {
+      throw new Error(data.error?.message || "Title API failed");
+    }
+
+    const title = data.choices[0].message.content.trim();
+
+    console.log("GENERATED TITLE:", title);
+
+    return title;
+  } catch (error) {
+    console.error("TITLE ERROR:", error);
+    return "New Chat";
+  }
 }
 
 app.post("/chat", async (req, res) => {
-  
-  const { question,chatid } = req.body;
- 
-  const history = await Chat.find({chatid})
-  
-  let messages = []
-  
-  history.forEach((msg)=>{
-  
-     messages.push({
-          role: "user",
-          content: msg.question
-      });
-  
+  try {
+    const { question, chatid } = req.body;
+
+    const history = await Chat.find({ chatid });
+
+    const messages = [];
+
+    history.forEach((msg) => {
       messages.push({
-          role: "assistant",
-          content: msg.answer
+        role: "user",
+        content: msg.question,
       });
-  
-  });
-  
-  messages.push({
+
+      messages.push({
+        role: "assistant",
+        content: msg.answer,
+      });
+    });
+
+    messages.push({
       role: "user",
-      content: question
-  })
-  const response = await fetch(
-    "https://api.groq.com/openai/v1/chat/completions",
+      content: question,
+    });
 
+    const response = await fetch(
+      "https://api.groq.com/openai/v1/chat/completions",
+      {
+        method: "POST",
 
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
-        "Content-Type": "application/json",
-      },
+        headers: {
+          Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
+          "Content-Type": "application/json",
+        },
 
-      body: JSON.stringify({
-        model: "llama-3.3-70b-versatile",
+        body: JSON.stringify({
+          model: "llama-3.3-70b-versatile",
+          messages,
+        }),
+      }
+    );
 
-        messages
-      }),
+    const data = await response.json();
+
+    console.log("CHAT RESPONSE:", data);
+
+    if (!response.ok) {
+      throw new Error(data.error?.message || "Groq API failed");
     }
 
+    const answer = data.choices[0].message.content;
 
-  
-  );
+    let title = "";
 
+    // First message
+    if (history.length === 0) {
+      title = await getTitle(question, answer);
 
-  console.log("working")
-  const data = await response.json();
-  const answer = data.choices[0].message.content
+      console.log("Saving title:", title);
 
-  if(history<1){
- 
+      await logs.create({
+        chatID: chatid,
+        Title: title,
+      });
+    }
 
-    const ti = await getTitle()
-    console.log(ti)
+    await Chat.create({
+      question,
+      answer,
+      chatid,
+    });
 
-    logs.create({
-      chatID:chatid,
-      Title:ti
+    res.json({
+      answer,
+      question,
+      chatid,
+      TITLE: title,
+    });
 
+  } catch (error) {
+    console.error("CHAT ERROR:", error);
 
-    })
-    console.log("done dona done")
-    
+    res.status(500).json({
+      error: error.message,
+    });
   }
-
-  await Chat.create({
-    question,
-    answer,
-    chatid,    
-  })
-  res.json({
-    answer:answer,
-    question,
-    chatid
-    
-  });
-
 });
 
 
