@@ -141,53 +141,82 @@ setChat([])
   }
 }
 
-  return (
-    <div className="flex ">
-      <div   className="bg-black w-[30vw] text-white  ">
+return (
+  <div className="flex h-screen bg-black overflow-hidden">
 
-        <button onClick={()=>{createChat()}} className= "bg-amber-300 rounded-xl p-2">new chat</button>
+    {/* SIDEBAR */}
+    <div className="w-[30vw] h-screen bg-black text-white flex flex-col">
 
-
-        <div className="">
-
-          {logs.map((log)=>(
-            <div     onClick={()=>{ showLogs(log.chatID)}}    className="p-3 mb-2 rounded hover:bg-gray-800 cursor-pointer"
-           key={log.chatID}>{log.Title}  </div>
-
-          ))}
-        </div>
+      {/* New Chat */}
+      <div className="p-4 shrink-0">
+        <button
+          onClick={createChat}
+          className="bg-amber-300 text-black rounded-xl p-2"
+        >
+          New Chat
+        </button>
       </div>
-      <div className="min-h-screen  w-[70vw] flex flex-col">
-        <div className="flex-1 h-[90vh] overflow-auto p-6 bg-red-600 ">
-          {chat.map((item, index) => (
-            <div key={index} className="mb-6">
-              <h3><b>You:</b> {item.question}</h3>
-              <h3><b>AI:</b> {item.answer}</h3>
-            </div>
-          ))}
-        </div>
 
-        <div className="border-t p-4 h-[10vh]  sticky  bottom-0 w-full  bg-amber-300 flex gap-2">
-          <div className=" w-[90%]">
-            <input
+      {/* Sidebar Scroll */}
+      <div className="flex-1 overflow-y-auto px-4">
+        {logs.map((log) => (
+          <div
+            onClick={() => showLogs(log.chatID)}
+            className="p-3 mb-2 rounded hover:bg-gray-800 cursor-pointer"
+            key={log.chatID}
+          >
+            {log.Title}
+          </div>
+        ))}
+      </div>
+
+    </div>
+
+
+    {/* CHAT AREA */}
+    <div className="w-[70vw] h-screen flex flex-col">
+
+      {/* Messages Scroll */}
+      <div className="flex-1 overflow-y-auto p-6 bg-black text-white">
+
+        {chat.map((item, index) => (
+          <div key={index} className="mb-6">
+            <h3>
+              <b>You:</b> {item.question}
+            </h3>
+
+            <h3>
+              <b>AI:</b> {item.answer}
+            </h3>
+          </div>
+        ))}
+
+      </div>
+
+
+      {/* INPUT - fixed at bottom of chat area */}
+      <div className="shrink-0 border rounded-xl p-4 bg-gray-600 flex gap-2">
+
+        <div className="w-[90%]">
+          <input
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
-            className="flex-1 border p-2 rounded w-[100%]  "
+            className="border p-2 rounded w-full"
             placeholder="Ask anything..."
-          />  
-          </div> 
-
-          <div className=" ">
-
-          <button
-            onClick={askAI}
-            className="bg-blue-600 text-white px-4 py-2 rounded  "
-          >
-            Send
-          </button>
-          </div>
+          />
         </div>
+
+        <button
+          onClick={askAI}
+          className="bg-blue-600 text-white px-4 py-2 rounded"
+        >
+          Send
+        </button>
+
       </div>
+
     </div>
-  );
+
+  </div>
+);
 }
