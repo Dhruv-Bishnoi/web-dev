@@ -6,6 +6,14 @@ import { useState ,useEffect} from "react";
 
 
 
+`1`  
+export default function App() {
+  const [question, setQuestion] = useState("");
+  const [chat, setChat] = useState([]);
+  const [chatid, setChatId] = useState('');
+  const [Title, setTitle] = useState('')
+  const [logs, setlogs] = useState([])
+  
 export default function App() {
   const [question, setQuestion] = useState("");
   const [chat, setChat] = useState([]);
