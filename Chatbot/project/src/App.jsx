@@ -6,7 +6,7 @@ import { useState ,useEffect} from "react";
 
 
 
-`1`  
+  
 export default function App() {
   const [question, setQuestion] = useState("");
   const [chat, setChat] = useState([]);
@@ -227,4 +227,4 @@ return (
 
   </div>
 );
-}
+}}
