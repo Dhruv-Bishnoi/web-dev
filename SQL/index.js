@@ -1,4 +1,19 @@
 import { faker } from '@faker-js/faker';
+import mysql from 'mysql2/promise';
+
+const connection = await mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  database: 'college',
+  password: '#Bishnoishab29',
+});
+
+try {
+  const [result] = await connection.query("SHOW TABLES");
+  console.log(result);
+} catch (err) {
+  console.log(err);
+}
 
 let createRandomUser = () => {
   return {
@@ -10,6 +25,8 @@ let createRandomUser = () => {
     birthdate: faker.date.birthdate(),
     registeredAt: faker.date.past(),
   };
-}
+};
 
-console.log(createRandomUser())
+console.log(createRandomUser());
+
+await connection.end();
