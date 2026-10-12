@@ -1,13 +1,9 @@
 
 import { faker } from '@faker-js/faker';
 import mysql from 'mysql2/promise';
+import express from 'express'
+const app = express()
 
-const connection = await mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  database: 'college',
-  password: "#Bishnoishab29",
-});
 
 
 let createRandomUser = () => {
@@ -27,16 +23,27 @@ for( let i = 1;i<=100;i++){
 
 }
 
+
+
 console.log(data)
 
-let q = "insert into  users(userID,username,email,passward) values ?"
+app.get('/add',(req,res)=>{
 
-try {
-  const [result] = await connection.query(q, [data]);
-  console.log("User inserted successfully!");
-  console.log(result);
-} catch (err) {
-  console.log(err);
-} finally {
-  await connection.end();
-}
+  let q = "insert into  users(userID,username,email,passward) values ?"
+  
+  try {
+    const [result] =  connection.query(q, [data]);
+    console.log("User inserted successfully!");
+    console.log(result);
+  } catch (err) {
+    console.log(err);
+  } finally {
+     connection.end();
+  }
+
+  res.send('Hello World')
+})
+
+app.listen(3000, () => {
+  console.log('Server is running on http://localhost:3000')
+})
